@@ -44,7 +44,14 @@ def signup(data: SignupSchema):
     db.commit()
     db.refresh(new_user)
 
-    return {"message": "User created successfully"}
+    token = create_access_token({"user_id": str(new_user.id)})
+
+    return {
+        "message": "User created successfully",
+        "access_token": token,
+        "token_type": "bearer",
+        "redirect_url": "/dashboard"
+    }
 
 
 @router.post("/login")
@@ -60,9 +67,10 @@ def login(data: LoginSchema):
     if not verify_password(data.password, user.password):
         raise HTTPException(status_code=400, detail="Invalid credentials")
 
-    token = create_access_token({"user_id": user.id})
+    token = create_access_token({"user_id": str(user.id)})
 
     return {
         "access_token": token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "redirect_url": "/dashboard"
     }
