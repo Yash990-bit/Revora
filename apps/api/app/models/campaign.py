@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Integer, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from app.db.base import Base
 
@@ -11,3 +11,5 @@ class Campaign(Base):
     product_name = Column(String)
     product_description = Column(String)
     goal = Column(String)
+    lead_sources = Column(JSON, default=list)
+    lead_limit = Column(Integer)
