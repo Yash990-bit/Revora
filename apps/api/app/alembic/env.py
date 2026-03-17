@@ -8,6 +8,9 @@ from dotenv import load_dotenv
 
 from app.db.base import Base
 import app.models.user  # noqa: F401 - import so Alembic detects the model
+import app.models.campaign  # noqa: F401
+import app.models.leads  # noqa: F401
+import app.models.icp_filter  # noqa: F401
 
 load_dotenv()
 
