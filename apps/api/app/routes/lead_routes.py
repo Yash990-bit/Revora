@@ -8,6 +8,7 @@ from app.models.leads import Leads as Lead
 
 from app.services.apollo_lead_generator import generate_leads_from_apollo
 from app.services.linkedin_lead_generator import generate_leads_from_linkedin
+from app.services.hunter_lead_generator import generate_leads_from_hunter
 
 router = APIRouter(prefix="/campaign", tags=["Leads"])
 
@@ -37,15 +38,18 @@ def process_leads_background(campaign_id: str, icp_id: str):
         if "LinkedIn" in campaign.lead_sources:
             leads.extend(generate_leads_from_linkedin(icp, campaign.lead_limit))
 
+        if "Hunter" in campaign.lead_sources:
+            leads.extend(generate_leads_from_hunter(icp, campaign.lead_limit))
+
         for lead in leads:
             new_lead = Lead(
                 campaign_id=campaign_id,
-                first_name=lead["first_name"],
-                last_name=lead["last_name"],
-                email=lead["email"],
-                company=lead["company"],
-                job_title=lead["job_title"],
-                linkedin=lead["linkedin"]
+                first_name=lead.get("first_name", ""),
+                last_name=lead.get("last_name", ""),
+                email=lead.get("email", ""),
+                company=lead.get("company", ""),
+                job_title=lead.get("job_title", ""),
+                linkedin=lead.get("linkedin", "")
             )
             db.add(new_lead)
         
