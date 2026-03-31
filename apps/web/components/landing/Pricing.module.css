@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  border-left: 3px solid #f05a28;
+  border-left: 3px solid #5B6EFF;
   padding-left: 12px;
   flex-shrink: 0;
 }
@@ -120,7 +120,7 @@
   position: relative;
   z-index: 2;
   padding-left: 12px;
-  border-left: 3px solid #f05a28;
+  border-left: 3px solid #5B6EFF;
 }
 
 .imageBox {
@@ -168,7 +168,7 @@
   transform: translateX(-50%);
   width: 100px;
   height: 6px;
-  background: #f05a28;
+  background: #5B6EFF;
   filter: blur(16px);
   border-radius: 50%;
 }
@@ -224,7 +224,7 @@
   width: 28px;
   height: 16px;
   border-radius: 999px;
-  background: #f05a28;
+  background: #5B6EFF;
   position: relative;
 }
 
@@ -329,7 +329,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #f05a28;
+  background: #5B6EFF;
   color: #fff;
   font-size: 0.8rem;
   font-weight: 600;
@@ -382,7 +382,7 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #f05a28;
+  background: #5B6EFF;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -99,9 +99,9 @@
 .badgeDot {
   width: 8px;
   height: 8px;
-  background: #f05a28;
+  background: #5B6EFF;
   border-radius: 50%;
-  box-shadow: 0 0 10px #f05a28;
+  box-shadow: 0 0 10px #5B6EFF;
 }
 
 .title {
@@ -115,7 +115,7 @@
 }
 
 .title span {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 .description {
@@ -151,11 +151,11 @@
 }
 
 .input:focus {
-  border-color: #f05a28;
+  border-color: #5B6EFF;
 }
 
 .submitBtn {
-  background: #f05a28;
+  background: #5B6EFF;
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -170,7 +170,7 @@
 .submitBtn:hover {
   background: #e04a18;
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px -10px #f05a28;
+  box-shadow: 0 10px 20px -10px #5B6EFF;
 }
 
 @media (max-width: 640px) {

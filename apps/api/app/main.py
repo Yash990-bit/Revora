@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.db.database import engine
 from app.db.base import Base
 from app.routes.auth_routes import router as auth_router
@@ -9,6 +10,14 @@ from app.routes import icp_routes
 from app.routes import lead_routes
 
 app = FastAPI(title="Revora API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 Base.metadata.create_all(bind=engine)

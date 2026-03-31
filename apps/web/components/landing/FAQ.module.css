@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  border-left: 3px solid #f05a28;
+  border-left: 3px solid #5B6EFF;
   padding-left: 12px;
   flex-shrink: 0;
 }
@@ -144,7 +144,7 @@
   position: absolute;
   width: 16px;
   height: 2px;
-  background: #f05a28;
+  background: #5B6EFF;
   border-radius: 1px;
   transition: transform 0.3s ease;
 }
@@ -219,7 +219,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #f05a28;
+  background: #5B6EFF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,7 +273,7 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #f05a28;
+  background: #5B6EFF;
   display: flex;
   align-items: center;
   justify-content: center;

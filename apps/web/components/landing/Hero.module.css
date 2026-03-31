@@ -54,7 +54,7 @@
 }
 
 .highlight {
-  color: #f05a28;
+  color: #5B6EFF;
   /* The requested orange */
 }
 
@@ -92,8 +92,8 @@
   transform: translateX(-50%);
   width: 2px;
   height: 100px;
-  background: #f05a28;
-  box-shadow: 0 0 40px 10px #f05a28;
+  background: #5B6EFF;
+  box-shadow: 0 0 40px 10px #5B6EFF;
 }
 
 .cardFooter {
@@ -115,7 +115,7 @@
 }
 
 .arrowIcon {
-  color: #f05a28;
+  color: #5B6EFF;
   width: 20px;
   height: 20px;
 }
@@ -167,7 +167,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: #f05a28;
+  background: #5B6EFF;
   color: white;
   border: none;
   padding: 1rem 1.75rem;
@@ -202,7 +202,7 @@
   font-family: var(--font-syne), sans-serif;
   font-size: clamp(2rem, 5vh, 3rem);
   font-weight: 700;
-  color: #f05a28;
+  color: #5B6EFF;
   line-height: 1;
 }
 

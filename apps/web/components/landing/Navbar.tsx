@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Navbar.module.css";
+import Link from "next/dist/client/link";
 
 const GridIcon = () => (
   <svg
@@ -62,7 +63,17 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      setIsLoggedIn(!!localStorage.getItem("token"));
+    };
+    checkAuth();
+    window.addEventListener("auth-changed", checkAuth);
+    return () => window.removeEventListener("auth-changed", checkAuth);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,58 +100,81 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, name: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const targetId = name.toLowerCase();
-    const element = document.getElementById(targetId);
+    if (window.location.pathname !== "/") {
+      window.location.href = `/#${id}`;
+      return;
+    }
+    const element = document.getElementById(id);
     if (element) {
-      // Small offset for the fixed navbar
-      const y = element.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: y, behavior: "smooth" });
-      setIsMenuOpen(false);
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     }
   };
 
   return (
-    <div className={styles.navWrapper} ref={navRef}>
-      <nav className={`${styles.navbar} ${isScrolled ? styles.navbarScrolled : ""}`}>
-        <div className={styles.navMain}>
-          <div className={styles.logo}>
-            <span>r</span>evora
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-fit max-w-full px-4 sm:px-6 lg:px-8 py-4 rounded-full bg-white shadow-md transition-all duration-300 ease-in-out">
+      <div className="flex items-center justify-between">
+        <div className="text-2xl font-bold">
+          <Link href="/">r<span className="text-blue-500">evora</span></Link>
+        </div>
+
+        {/* Inline menu shown when scrolled */}
+        <div className={`${styles.inlineMenu} ${isScrolled ? styles.showInline : ""}`}>
+          {NAV_LINKS.map(link => (
+            <a 
+              key={link.name} 
+              href={`#${link.name.toLowerCase()}`} 
+              onClick={(e) => handleNavClick(e, link.name)}
+              className={styles.inlineLink}
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-4">
+          {/* Grid Icon hidden when scrolled */}
+          <div 
+            className={`${styles.gridIconWrapper} ${isScrolled ? styles.hideGrid : ""}`}
+            onClick={() => !isScrolled && setIsMenuOpen(!isMenuOpen)}
+          >
+            <GridIcon />
           </div>
           
-          {/* Inline menu shown when scrolled */}
-          <div className={`${styles.inlineMenu} ${isScrolled ? styles.showInline : ""}`}>
-            {NAV_LINKS.map(link => (
-              <a 
-                key={link.name} 
-                href={`#${link.name.toLowerCase()}`} 
-                onClick={(e) => handleNavClick(e, link.name)}
-                className={styles.inlineLink}
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
+          {isLoggedIn ? (
+            <Link
+              href="/dashboard"
+              className="px-6 py-2.5 rounded-full bg-black text-white text-sm font-bold transition-all hover:bg-zinc-900 active:scale-95 whitespace-nowrap"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              href="/auth/login"
+              className="px-6 py-2.5 rounded-full bg-black text-white text-sm font-bold transition-all hover:bg-zinc-900 active:scale-95 whitespace-nowrap"
+            >
+              Get started
+            </Link>
+          )}
 
-          <div className={styles.icons}>
-            {/* Grid Icon hidden when scrolled */}
-            <div 
-              className={`${styles.gridIconWrapper} ${isScrolled ? styles.hideGrid : ""}`}
-              onClick={() => !isScrolled && setIsMenuOpen(!isMenuOpen)}
-            >
-              <GridIcon />
-            </div>
-            <button 
-              className={styles.calendarBtn} 
-              aria-label="Book Demo"
-              onClick={() => window.dispatchEvent(new Event("open-launch-modal"))}
-            >
-              <CalendarIcon />
-            </button>
-          </div>
+          <Link
+            href="/schedule"
+            className="p-2.5 rounded-full bg-blue-500 text-white transition-all hover:bg-blue-600 active:scale-95"
+            aria-label="Book Demo"
+            onClick={() => window.dispatchEvent(new Event("open-launch-modal"))}
+          >
+            <CalendarIcon />
+          </Link>
         </div>
-      </nav>
+      </div>
 
       {/* Dropdown Menu - Shown only when at top AND menu is open */}
       <div className={`${styles.dropdownMenu} ${isMenuOpen && !isScrolled ? styles.showDropdown : ""}`}>
@@ -156,6 +190,6 @@ export default function Navbar() {
           </a>
         ))}
       </div>
-    </div>
+    </nav>
   );
 }

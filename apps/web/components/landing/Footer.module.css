@@ -24,7 +24,7 @@
 
 /* CTA Marquee */
 .ctaMarquee {
-  background: #f05a28;
+  background: #5B6EFF;
   color: #fff;
   padding: 12px 0;
   display: flex;
@@ -61,7 +61,7 @@
   font-family: var(--font-syne), sans-serif;
   font-size: clamp(4rem, 12vw, 15rem);
   font-weight: 700;
-  color: #f05a28;
+  color: #5B6EFF;
   line-height: 0.85;
   margin-bottom: 4rem;
   text-align: center;
@@ -124,7 +124,7 @@
 }
 
 .socialIcon:hover {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 .offerList {
@@ -141,7 +141,7 @@
 
 .offerList li::before {
   content: "•";
-  color: #f05a28;
+  color: #5B6EFF;
   display: inline-block;
   width: 1em;
   font-weight: bold;
@@ -237,12 +237,12 @@
 }
 
 .privacyLink {
-  color: #f05a28;
+  color: #5B6EFF;
   text-decoration: none;
 }
 
 .submitBtn {
-  background: #f05a28;
+  background: #5B6EFF;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -345,7 +345,7 @@
   font-family: var(--font-syne), sans-serif;
   font-size: clamp(3rem, 10vw, 10rem);
   font-weight: 700;
-  color: #f05a28;
+  color: #5B6EFF;
   line-height: 1;
   letter-spacing: -0.05em;
   display: flex;
@@ -401,7 +401,7 @@
   transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
-  background: #f05a28;
+  background: #5B6EFF;
   border-radius: 50%;
 }
 
@@ -445,7 +445,7 @@
 }
 
 .navBlockDot.active {
-  background: #f05a28;
+  background: #5B6EFF;
 }
 
 .navLink {
@@ -481,7 +481,7 @@
 }
 
 .newsAsterisk {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 .newsForm {
@@ -509,7 +509,7 @@
 }
 
 .newsSubmit {
-  background: #f05a28;
+  background: #5B6EFF;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -527,7 +527,7 @@
 }
 
 .newsTermsLink {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 .newsSpam {
@@ -590,7 +590,7 @@
   justify-content: center;
   cursor: pointer;
   transition: color 0.2s;
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 .backToTop:hover {

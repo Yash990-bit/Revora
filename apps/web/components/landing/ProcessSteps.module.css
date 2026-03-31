@@ -43,7 +43,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  border-left: 3px solid #f05a28;
+  border-left: 3px solid #5B6EFF;
   padding-left: 12px;
   flex-shrink: 0;
 }
@@ -122,7 +122,7 @@
   transform: translateX(-50%);
   width: 120px;
   height: 8px;
-  background: #f05a28;
+  background: #5B6EFF;
   filter: blur(20px);
   border-radius: 50%;
 }
@@ -192,7 +192,7 @@
 .dotActive {
   width: 24px;
   border-radius: 999px;
-  background: #f05a28;
+  background: #5B6EFF;
   box-shadow: 0 0 8px rgba(240, 90, 40, 0.4);
 }
 
@@ -225,7 +225,7 @@
 .arrowBtn:hover {
   background: rgba(240, 90, 40, 0.1);
   border-color: rgba(240, 90, 40, 0.3);
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 /* ── Center: Step content (animated) ── */
@@ -271,7 +271,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f05a28;
+  background: #5B6EFF;
   color: #fff;
   font-size: 0.85rem;
   font-weight: 600;

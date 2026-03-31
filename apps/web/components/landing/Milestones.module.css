@@ -77,7 +77,7 @@
 
 .headingItalic {
   font-style: italic;
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 .headingNormal {
@@ -109,7 +109,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #f05a28;
+  background: #5B6EFF;
 }
 
 /* ── Stats Grid ── */
@@ -160,7 +160,7 @@
 }
 
 .cardValueAccent {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 .cardGlow {
