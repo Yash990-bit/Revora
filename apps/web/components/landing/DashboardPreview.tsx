@@ -233,7 +233,7 @@ export default function DashboardPreview() {
 
                 <div
                   className={s.donut}
-                  style={{ background: "conic-gradient(#f05a28 0% 35%, rgba(255,255,255,0.08) 35% 55%, rgba(255,255,255,0.04) 55% 75%, rgba(255,255,255,0.15) 75% 100%)" }}
+                  style={{ background: "conic-gradient(#5B6EFF 0% 35%, rgba(255,255,255,0.08) 35% 55%, rgba(255,255,255,0.04) 55% 75%, rgba(255,255,255,0.15) 75% 100%)" }}
                 >
                   <div className={s.donutHole}>
                     <div className={s.donutBadge}>AI<br />Load</div>

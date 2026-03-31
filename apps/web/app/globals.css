@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --animate-rotate-electric: rotateElectric 4s linear infinite;
+
+  @keyframes rotateElectric {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -12,31 +21,34 @@
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+@layer base {
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 
-body {
-  color: var(--foreground);
-  background: transparent;
-}
+  body {
+    color: var(--foreground);
+    background: transparent;
+  }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 .imgDark {
   display: none;
 }
+
 
 @media (prefers-color-scheme: dark) {
   html {

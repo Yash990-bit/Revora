@@ -2,14 +2,17 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
-import styles from "../auth.module.css";
 import Navbar from "../../../components/landing/Navbar";
+import { Eye, EyeOff, Mail, Lock, User, Building } from "lucide-react";
 
 export default function SignupPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [role, setRole] = useState("founder");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,19 +36,26 @@ export default function SignupPage() {
     setLoading(true);
     setError("");
 
+    // Temporary bypass for UI testing
+    setTimeout(() => {
+      localStorage.setItem("token", "mock_token");
+      window.dispatchEvent(new Event("auth-changed"));
+      router.push("/dashboard");
+      setLoading(false);
+    }, 1000);
+
+    /* Commenting out real auth for UI testing
     try {
       const response = await fetch("http://localhost:8000/auth/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           full_name,
           email,
           password,
           confirm_password,
           company_name: company_name || "N/A",
-          role: "founder",
+          role,
         }),
       });
 
@@ -55,10 +65,9 @@ export default function SignupPage() {
         throw new Error(data.detail || "Something went wrong during signup");
       }
 
-      // Store token if needed:
       if (data.access_token) {
-         localStorage.setItem("token", data.access_token);
-         window.dispatchEvent(new Event("auth-changed"));
+        localStorage.setItem("token", data.access_token);
+        window.dispatchEvent(new Event("auth-changed"));
       }
 
       router.push(data.redirect_url || "/dashboard");
@@ -71,75 +80,226 @@ export default function SignupPage() {
     } finally {
       setLoading(false);
     }
+    */
   };
 
   return (
     <>
       <Navbar />
-      <div className={styles.signupPage}>
-        <div className={styles.cardWrapper}>
-          <div className={styles.card}>
-            <h1 className={styles.title}>Create Revora Account</h1>
-            <p className={styles.subtitle}>Sign up to access your personalized<br/>workspace and rituals</p>
+      <div className="flex h-screen w-full items-center justify-center bg-[#050505] p-4 md:p-6 lg:p-16 selection:bg-[#5B6EFF]/30 overflow-hidden">
 
-            {error && <div style={{ color: "#f05a28", marginBottom: "1rem", fontSize: "0.9rem" }}>{error}</div>}
+        {/* Animated Background Elements */}
+        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] right-[-10%] h-[400px] w-[400px] rounded-full bg-[#5B6EFF]/10 blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] left-[-10%] h-[400px] w-[400px] rounded-full bg-[#5B6EFF]/5 blur-[120px]"></div>
+        </div>
 
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <div className={styles.twoCol}>
-                <div className={styles.inputWrapper}>
-                  <input className={styles.input} name="full_name" type="text" placeholder="Full Name" required />
-                </div>
-                <div className={styles.inputWrapper}>
-                  <input className={styles.input} name="company_name" type="text" placeholder="Company Name (Optional)" />
-                </div>
-              </div>
-              
-              <div className={styles.inputWrapper}>
-                <input className={styles.input} name="email" type="email" placeholder="Enter Email / Phone No" required />
-                <svg className={styles.inputIcon} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              </div>
-              
-              <div className={styles.twoCol}>
-                <div className={styles.inputWrapper}>
-                  <input className={styles.input} name="password" type="password" placeholder="Passcode" required />
-                  <svg className={styles.inputIcon} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-                </div>
-                <div className={styles.inputWrapper}>
-                  <input className={styles.input} name="confirm_password" type="password" placeholder="Confirm Passcode" required />
-                  <svg className={styles.inputIcon} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-                </div>
-              </div>
+        {/* Main Glass Layout */}
+        <div className="relative z-10 flex h-[88vh] min-h-[600px] max-h-[800px] w-full max-w-[1300px] items-stretch overflow-hidden rounded-[32px] border border-white/10 bg-black/40 backdrop-blur-3xl shadow-[0_0_80px_rgba(0,0,0,0.8)]">
 
-              <button className={styles.primaryBtn} type="submit" disabled={loading}>
-                {loading ? "Creating account..." : "Sign up"}
-              </button>
-            </form>
+          {/* Neon Border Glow */}
+          <div className="absolute inset-0 pointer-events-none rounded-[32px] border border-[#5B6EFF]/20 shadow-[inset_0_0_20px_rgba(240,90,40,0.05)]"></div>
 
-            <div className={styles.divider}>Or Sign up with</div>
-
-            <div className={styles.socialGrid}>
-              <button className={styles.socialBtn} type="button">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.187 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
-                Google
-              </button>
-              <button className={styles.socialBtn} type="button">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.435 9.1c0 2.228-1.742 4.093-3.951 4.194-2.274.1-3.99-1.921-3.95-4.148.04-2.28 1.8-4.116 3.99-4.195 2.203-.08 3.91 1.815 3.91 4.149zm-3.824 4.314c-2.37.118-4.43-1.29-5.462-1.29-1.074 0-2.887 1.258-4.755 1.218-2.454-.041-4.71-1.436-5.968-3.64-2.55-4.437-.65-11.01 1.83-14.616 1.22-1.776 2.89-2.924 4.8-2.964 1.83-.042 3.565 1.257 4.7 1.257 1.136 0 3.097-1.517 5.341-1.258 1.438.08 2.502.502 3.652 1.4.385.3 3.614 3.067 3.57 7.734-4.08.384-5.875 4.322-5.717 7.155z"/></svg>
-                Apple ID
-              </button>
-              <button className={styles.socialBtn} type="button">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                Facebook
-              </button>
+          {/* Left Side: Heavy Product Content (55% width) */}
+          <div className="relative hidden w-[55%] flex-col justify-between overflow-hidden border-r border-white/5 p-16 lg:flex">
+            {/* Background Image with Overlay */}
+            <div className="absolute inset-0 z-0">
+              <Image 
+                src="/authimg/signup_bg.jpg" 
+                alt="Signup background" 
+                fill
+                className="object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-1000"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#5B6EFF]/20 via-black/80 to-black/95"></div>
             </div>
 
-            <div className={styles.helper}>
-              <span className={styles.helperText}>Already have an account?</span>
-              <Link href="/auth/login" className={styles.secondaryBtn}>Sign in</Link>
+            <div className="relative z-10 flex flex-col gap-12">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl font-black tracking-tighter text-white"><span className="text-3xl tracking-tighter text-[#5B6EFF]">R</span>EVORA</span>
+              </div>
+
+              <div className="mt-4 space-y-5">
+                <h1 className="font-syne text-5xl font-bold tracking-tight leading-[1.05] text-white">
+                  Build Your <br />
+                  <span className="bg-gradient-to-r from-[#5B6EFF] to-[#ff8c42] bg-clip-text text-transparent">
+                    Autonomous
+                  </span>{" "}
+                  <br />
+                  Legacy.
+                </h1>
+                <p className="max-w-md text-base leading-relaxed text-white/40 font-medium font-syne">
+                  Scale your operations beyond human limits with AI that understands your business intent.
+                </p>
+              </div>
+
+              <div className="mt-1 space-y-2">
+                {[
+                  "Real-time adaptive neural networks",
+                  "Zero-latency inference across nodes",
+                  "Infinite horizontal scaling for agents",
+                ].map((text, i) => (
+                  <div key={i} className="flex items-center gap-3 group">
+                    <div className="h-1.5 w-1.5 rounded-full bg-[#5B6EFF] group-hover:scale-[2] transition-transform duration-500 shadow-[0_0_10px_#5B6EFF]"></div>
+                    <span className="text-sm text-white/50 font-medium group-hover:text-white transition-colors duration-300 cursor-default">
+                      {text}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
+            <div className="relative z-10 flex items-center justify-between border-t border-white/10 pt-6 text-[10px] font-black uppercase tracking-[0.2em] text-white/20">
+              <div>© 2026 Revora Autonomous Inc.</div>
+              <div className="flex gap-6">
+                <Link href="#" className="hover:text-[#5B6EFF] transition-colors">Documentation</Link>
+                <Link href="#" className="hover:text-[#5B6EFF] transition-colors">Privacy Policy</Link>
+              </div>
+            </div>
+
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+          </div>
+
+          {/* Right Side: 45% */}
+          <div className="flex w-full flex-col justify-center bg-black/60 px-8 py-6 md:px-12 lg:w-[45%] overflow-y-auto relative">
+            <div className="w-full max-w-[400px] mx-auto z-10">
+
+              <div className="mb-7">
+                <h2 className="text-3xl font-bold tracking-tight text-white mb-1.5">Create Account</h2>
+                <p className="text-white/40 font-medium text-sm leading-relaxed">
+                  Join the next wave of autonomous automation.
+                </p>
+              </div>
+
+              {error && (
+                <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-xs text-red-400 backdrop-blur-xl flex items-center gap-2.5">
+                  <div className="h-1.5 w-1.5 rounded-full bg-red-500 shadow-[0_0_8px_red] shrink-0"></div>
+                  {error}
+                </div>
+              )}
+
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                {/* Full Name + Organization */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#5B6EFF] ml-1">Full Name</label>
+                    <div className="relative group">
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-focus-within:text-[#5B6EFF] transition-all duration-300" />
+                      <input
+                        className="w-full rounded-xl border border-white/5 bg-white/[0.03] py-3 pl-11 pr-3 text-sm text-white placeholder:text-white/10 outline-none transition-all duration-300 focus:border-[#5B6EFF]/40 focus:bg-[#5B6EFF]/5 focus:ring-4 focus:ring-[#5B6EFF]/10"
+                        name="full_name"
+                        placeholder="Alex Neo"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#5B6EFF] ml-1">Organization</label>
+                    <div className="relative group">
+                      <Building className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-focus-within:text-[#5B6EFF] transition-all duration-300" />
+                      <input
+                        className="w-full rounded-xl border border-white/5 bg-white/[0.03] py-3 pl-11 pr-3 text-sm text-white placeholder:text-white/10 outline-none transition-all duration-300 focus:border-[#5B6EFF]/40 focus:bg-[#5B6EFF]/5 focus:ring-4 focus:ring-[#5B6EFF]/10"
+                        name="company"
+                        placeholder="Cyberdyne"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#5B6EFF] ml-1">Email Address</label>
+                  <div className="relative group">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-focus-within:text-[#5B6EFF] transition-all duration-300" />
+                    <input
+                      className="w-full rounded-xl border border-white/5 bg-white/[0.03] py-3 pl-11 pr-4 text-sm text-white placeholder:text-white/10 outline-none transition-all duration-300 focus:border-[#5B6EFF]/40 focus:bg-[#5B6EFF]/5 focus:ring-4 focus:ring-[#5B6EFF]/10"
+                      name="email"
+                      type="email"
+                      placeholder="alex@revora.ai"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Password */}
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#5B6EFF] ml-1">Security Key</label>
+                  <div className="relative group">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20 group-focus-within:text-[#5B6EFF] transition-all duration-300" />
+                    <input
+                      className="w-full rounded-xl border border-white/5 bg-white/[0.03] py-3 pl-11 pr-11 text-sm text-white placeholder:text-white/10 outline-none transition-all duration-300 focus:border-[#5B6EFF]/40 focus:bg-[#5B6EFF]/5 focus:ring-4 focus:ring-[#5B6EFF]/10"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••••••"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors p-1"
+                    >
+                      {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Role Selector */}
+                <div className="space-y-2 pt-1">
+                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 ml-1 block">Node Protocol</label>
+                  <div className="flex p-1 rounded-xl bg-white/[0.03] border border-white/5 gap-1.5">
+                    {["founder", "recruiter", "developer"].map((r) => (
+                      <button
+                        key={r}
+                        type="button"
+                        onClick={() => setRole(r)}
+                        className={`flex-1 rounded-lg py-2.5 text-[10px] font-black tracking-widest uppercase transition-all duration-500 ${
+                          role === r
+                            ? "bg-[#5B6EFF] text-white shadow-[0_4px_12px_rgba(240,90,40,0.4)] scale-[1.02]"
+                            : "text-white/30 hover:text-white hover:bg-white/5"
+                        }`}
+                      >
+                        {r}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Submit */}
+                <button
+                  className="group relative mt-2 w-full overflow-hidden rounded-xl bg-[#5B6EFF] py-4 text-sm font-black text-white shadow-[0_15px_30px_rgba(240,90,40,0.3)] hover:shadow-[0_20px_40px_rgba(240,90,40,0.4)] transition-all active:scale-[0.98] disabled:opacity-60"
+                  type="submit"
+                  disabled={loading}
+                >
+                  <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 pointer-events-none"></div>
+                  {loading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/20 border-t-white"></div>
+                      DEPLOYING...
+                    </span>
+                  ) : (
+                    "DEPLOY PROTOCOL"
+                  )}
+                </button>
+              </form>
+
+              <div className="mt-6 text-center">
+                <p className="text-xs text-white/30 font-medium">
+                  Already registered?{" "}
+                  <Link
+                    href="/auth/login"
+                    className="font-bold text-[#5B6EFF] hover:text-[#ff8c42] transition-colors ml-1.5 uppercase tracking-widest border-b border-[#5B6EFF]/30 pb-0.5 whitespace-nowrap"
+                  >
+                    Access Cluster
+                  </Link>
+                </p>
+              </div>
+            </div>
+
+            {/* Subtle glow behind form */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-[#5B6EFF]/5 blur-[100px] pointer-events-none"></div>
           </div>
         </div>
-        <div className={styles.copyright}>Copyright @Revora 2024 | Privacy Policy</div>
       </div>
     </>
   );

@@ -69,7 +69,7 @@
   margin-bottom: 1rem;
 }
 
-.hi { font-style: italic; color: #f05a28; }
+.hi { font-style: italic; color: #5B6EFF; }
 .hn { font-style: normal; color: rgba(255, 255, 255, 0.8); }
 
 .desc {
@@ -130,7 +130,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #f05a28;
+  background: #5B6EFF;
 }
 
 /* hexagonal snowflake icon */
@@ -231,7 +231,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #f05a28;
+  background: #5B6EFF;
   margin-top: 6px;
 }
 
@@ -306,7 +306,7 @@
 .speedBadge {
   font-size: 0.65rem;
   font-weight: 700;
-  color: #f05a28;
+  color: #5B6EFF;
   background: rgba(240, 90, 40, 0.1);
   padding: 2px 8px;
   border-radius: 4px;
@@ -328,7 +328,7 @@
 .speedFill {
   height: 100%;
   border-radius: 2px;
-  background: linear-gradient(90deg, rgba(240, 90, 40, 0.25), #f05a28);
+  background: linear-gradient(90deg, rgba(240, 90, 40, 0.25), #5B6EFF);
 }
 
 /* ── Cell 5: Uptime ── */
@@ -432,7 +432,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #f05a28;
+  background: #5B6EFF;
   color: #fff;
   font-size: 0.8rem;
   font-weight: 600;

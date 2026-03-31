@@ -83,7 +83,7 @@
 }
 
 .logoAccent {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 /* nav */
@@ -120,7 +120,7 @@
 }
 
 .navItemActive svg {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 .settingsItem {
@@ -169,7 +169,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f05a28;
+  background: #5B6EFF;
   color: #fff;
   font-size: 0.85rem;
   font-weight: 600;
@@ -204,9 +204,9 @@
   right: 8px;
   width: 7px;
   height: 7px;
-  background: #f05a28;
+  background: #5B6EFF;
   border-radius: 50%;
-  box-shadow: 0 0 6px #f05a28;
+  box-shadow: 0 0 6px #5B6EFF;
 }
 
 /* ── Content area ── */
@@ -263,7 +263,7 @@
   composes: statIcon;
   background: rgba(240, 90, 40, 0.12);
   border: 1px solid rgba(240, 90, 40, 0.18);
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 .statIconNeutral {
@@ -290,7 +290,7 @@
 .statBadge {
   font-size: 0.7rem;
   font-weight: 600;
-  color: #f05a28;
+  color: #5B6EFF;
   margin-left: 6px;
 }
 
@@ -362,8 +362,8 @@
 
 .legendDotOrange {
   composes: legendDot;
-  background: #f05a28;
-  box-shadow: 0 0 6px #f05a28;
+  background: #5B6EFF;
+  box-shadow: 0 0 6px #5B6EFF;
 }
 
 /* Bar chart */
@@ -413,7 +413,7 @@
 
 .barBright {
   height: 24px;
-  background: linear-gradient(to top, #f05a28, #f07a50);
+  background: linear-gradient(to top, #5B6EFF, #f07a50);
   border-radius: 0 0 3px 3px;
   margin-top: -6px;
   position: relative;
@@ -515,7 +515,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #f05a28;
+  background: #5B6EFF;
 }
 
 .dotBlue {

@@ -87,7 +87,7 @@
 }
 
 .aiPrompt svg {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 /* Mini dashboard mockup inside card */
@@ -114,7 +114,7 @@
 
 .miniDashBtn {
   font-size: 0.45rem;
-  background: #f05a28;
+  background: #5B6EFF;
   color: #fff;
   padding: 2px 8px;
   border-radius: 999px;
@@ -170,8 +170,8 @@
   height: 80px;
   border-radius: 50%;
   border: 6px solid rgba(255, 255, 255, 0.06);
-  border-top-color: #f05a28;
-  border-right-color: #f05a28;
+  border-top-color: #5B6EFF;
+  border-right-color: #5B6EFF;
   transform: rotate(45deg);
 }
 
@@ -292,7 +292,7 @@
   font-size: 0.7rem;
   font-style: italic;
   font-weight: 600;
-  color: #f05a28;
+  color: #5B6EFF;
   text-align: center;
   z-index: 2;
 }
@@ -331,7 +331,7 @@
   composes: intDot;
   background: rgba(240, 90, 40, 0.15);
   border-color: rgba(240, 90, 40, 0.25);
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 /* ══════════ Card 5 — Simple Strategies ══════════ */

@@ -96,7 +96,7 @@
 }
 
 .tabActive {
-  background: #f05a28;
+  background: #5B6EFF;
   color: white;
   box-shadow: 0 12px 30px rgba(240, 90, 40, 0.35);
 }
@@ -164,7 +164,7 @@
   padding: 0.95rem 1.25rem;
   font-weight: 600;
   font-size: 1rem;
-  background: #f05a28;
+  background: #5B6EFF;
   color: white;
   cursor: pointer;
   display: flex;

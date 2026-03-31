@@ -50,7 +50,7 @@
 }
 
 .logo span {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 /* Inline Menu for Scrolled State */
@@ -82,7 +82,7 @@
 }
 
 .inlineLink:hover {
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 /* Icons */
@@ -127,7 +127,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f05a28;
+  background: #5B6EFF;
   color: white;
   border: none;
   width: 44px;
@@ -139,7 +139,7 @@
 }
 
 .calendarBtn:hover {
-  background: #f05a28;
+  background: #5B6EFF;
   transform: scale(1.05);
 }
 
@@ -214,7 +214,7 @@
 }
 
 .dropdownLink:hover {
-  color: #f05a28;
+  color: #5B6EFF;
   transform: scale(1.05);
 }
 
@@ -222,7 +222,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f05a28;
+  color: #5B6EFF;
 }
 
 @media (max-width: 1024px) {
