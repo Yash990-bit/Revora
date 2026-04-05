@@ -4,7 +4,7 @@ This is the backend API for Revora, built with **FastAPI**. It has been architec
 
 ---
 
-## 🏗️ System Architecture & Design Patterns
+## System Architecture & Design Patterns
 
 We have thoughtfully applied standard enterprise design patterns to structure our features modularly and expansively. Here are the core patterns implemented in this codebase:
 
@@ -26,7 +26,7 @@ We have thoughtfully applied standard enterprise design patterns to structure ou
 
 ---
 
-## 👨‍💻 SOLID Principles Implemented
+## SOLID Principles Implemented
 
 *   **S - Single Responsibility Principle**: Responsibilities are strictly segregated. For example, `ApolloLeadStrategy` *strictly handles HTTP fetching*, while `ApolloAdapter` *strictly handles JSON normalization*. The routing methods no longer do either.
 *   **O - Open/Closed Principle**: By using the Strategy Pattern, we can integrate new data sources (e.g., Lusha, ZoomInfo) by simply creating a new class that extends `LeadGenerationStrategy`. We **never have to modify** the existing lead generation execution code again.
@@ -36,7 +36,7 @@ We have thoughtfully applied standard enterprise design patterns to structure ou
 
 ---
 
-## 🚀 Quick Start Commands
+## Quick Start Commands
 
 To make interactions simple, we have provided the exact bash commands to run your application. 
 
@@ -58,18 +58,23 @@ INFO:     Uvicorn running on http://127.0.0.1:8000
 
 ---
 
-## 📂 Project Directory Structure
+## Project Directory Structure
 
 ```text
-api/
-├── README.md               # Application Architecture Details documentation
-└── app/
-    ├── db/                 
-    │   └── database.py     # Singleton implementations for DB
-    ├── models/             # SQLAlchemy ORM Models
-    ├── routes/             # FastAPI Route configurations
-    └── services/           
-        ├── lead_factory.py               # Factory Pattern logic
-        ├── lead_generation_strategy.py   # Strategy & Polymorphism
-        └── apollo_adapter.py             # Adapter logic
+Revora/
+├── apps/
+│   ├── api/                # FastAPI Backend
+│   │   └── app/
+│   │       ├── db/         # Singleton implementations for DB
+│   │       ├── models/     # SQLAlchemy ORM Models
+│   │       ├── routes/     # FastAPI Route configurations
+│   │       └── services/   # Design Patterns (Factory, Strategy, Adapter)
+│   ├── docs/               # Next.js Docs application
+│   └── web/                # Next.js Web application
+├── packages/               # Shared Turborepo packages
+│   ├── ui/                 # Shared React Components
+│   ├── eslint-config/      # Shared ESLint config
+│   └── typescript-config/  # Shared TS configs
+├── turbo.json              # Turborepo configuration
+└── README.md               # You are here
 ```
