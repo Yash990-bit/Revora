@@ -6,9 +6,7 @@ from app.models.campaign import Campaign
 from app.models.icp_filter import ICP
 from app.models.leads import Leads as Lead
 
-from app.services.apollo_lead_generator import generate_leads_from_apollo
-from app.services.linkedin_lead_generator import generate_leads_from_linkedin
-from app.services.hunter_lead_generator import generate_leads_from_hunter
+from app.services.lead_factory import LeadGeneratorFactory
 
 router = APIRouter(prefix="/campaign", tags=["Leads"])
 
@@ -32,14 +30,17 @@ def process_leads_background(campaign_id: str, icp_id: str):
 
         leads = []
         
-        if "Apollo" in campaign.lead_sources or not campaign.lead_sources:
-            leads.extend(generate_leads_from_apollo(icp, campaign.lead_limit))
-            
-        if "LinkedIn" in campaign.lead_sources:
-            leads.extend(generate_leads_from_linkedin(icp, campaign.lead_limit))
-
-        if "Hunter" in campaign.lead_sources:
-            leads.extend(generate_leads_from_hunter(icp, campaign.lead_limit))
+        # If no sources specified, default to Apollo
+        sources = campaign.lead_sources if campaign.lead_sources else ["Apollo"]
+        
+        for source in sources:
+            # Factory Pattern in action!
+            strategy = LeadGeneratorFactory.get_strategy(source)
+            if strategy:
+                # Open/Closed & Dependency Inversion Principle
+                # We call generate_leads on the interface without caring about the concrete class.
+                generated = strategy.generate_leads(icp, campaign.lead_limit)
+                leads.extend(generated)
 
         for lead in leads:
             new_lead = Lead(
