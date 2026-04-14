@@ -14,7 +14,6 @@ import {
   Bell,
   Plus,
   Share2,
-  BarChart2,
   Puzzle,
   LucideIcon,
   CheckCircle2,
