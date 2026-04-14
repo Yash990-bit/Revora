@@ -1,0 +1,26 @@
+version: 2
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+
+  # Maintain dependencies for Python (Root)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+
+  # Maintain dependencies for Python (API App)
+  - package-ecosystem: "pip"
+    directory: "/apps/api"
+    schedule:
+      interval: "monthly"
+
+  # Maintain dependencies for Bun
+  # (Handles root package.json and workspaces in apps/* and packages/*)
+  - package-ecosystem: "bun"
+    directory: "/"
+    schedule:
+      interval: "monthly"
