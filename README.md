@@ -1,6 +1,11 @@
-# Revora API - Lead Generation Backend
+# Revora API - Lead Generation & Outreach Backend
 
 This is the backend API for Revora, built with **FastAPI**. It has been architecturally designed to serve not only as a functional application but also to demonstrate proper **System Design**, **Object-Oriented Programming (OOP)**, and **SOLID Principles**.
+
+### Key Features Added
+- **Automated Lead Generation**: Integrates with external providers (Apollo, LinkedIn) via pattern-driven interfaces to generate robust leads based on an Ideal Customer Profile (ICP).
+- **Gmail Outreach Integration**: Connects securely to the Google Gmail API (via OAuth2) allowing users to execute personalized cold-email campaigns straight from the portal.
+- **JWT Authentication**: Protects user-scoped endpoints, keeping campaigns and leads properly segmented.
 
 ---
 
@@ -72,10 +77,11 @@ Revora/
 │   │   └── app/
 │   │       ├── db/         # Singleton implementations for DB
 │   │       ├── models/     # SQLAlchemy ORM Models
-│   │       ├── routes/     # FastAPI Route configurations
+│   │       ├── routes/     # FastAPI Route configurations (Campaigns, Leads, Gmail, Auth)
 │   │       └── services/   # Design Patterns (Factory, Strategy, Adapter)
 │   ├── docs/               # Next.js Docs application
 │   └── web/                # Next.js Web application
+├── docs/                   # Architecture & Documentation (ERDs, Schemas)
 ├── packages/               # Shared Turborepo packages
 │   ├── ui/                 # Shared React Components
 │   ├── eslint-config/      # Shared ESLint config
