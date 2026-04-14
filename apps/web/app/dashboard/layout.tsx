@@ -56,6 +56,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
   const [onboardingData, setOnboardingData] = useState({ company_name: "", role: "Founder" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -74,7 +75,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             console.error(e);
           }
         }
+        // Remove params from URL and then mark as ready
         window.history.replaceState({}, document.title, window.location.pathname);
+        setIsReady(true);
       } else {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -83,6 +86,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         }
         const storedUser = localStorage.getItem("user");
         if (storedUser) setUser(JSON.parse(storedUser));
+        setIsReady(true);
       }
     }
   }, [router]);
@@ -214,12 +218,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               href="/dashboard/outreach"
             />
             <SidebarItem
-              icon={BarChart2}
-              label="Analytics"
-              active={pathname === "/dashboard/analytics"}
-              href="/dashboard/analytics"
-            />
-            <SidebarItem
               icon={Puzzle}
               label="Integrations"
               active={pathname === "/dashboard/integrations"}
@@ -288,7 +286,13 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto bg-[#0d0d0d]">
-          <div className="p-6">{children}</div>
+          <div className="p-6">
+            {isReady ? children : (
+              <div className="flex items-center justify-center h-full">
+                <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/10 border-t-[#f05a28]" />
+              </div>
+            )}
+          </div>
         </main>
       </div>
     </div>

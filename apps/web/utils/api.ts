@@ -4,5 +4,15 @@ export const authFetch = async (url: string, options: RequestInit = {}) => {
   if (token) {
     headers.set('Authorization', `Bearer ${token}`);
   }
-  return fetch(url, { ...options, headers });
+  const response = await fetch(url, { ...options, headers });
+
+  if (response.status === 401) {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = "/auth/login";
+    }
+  }
+
+  return response;
 };

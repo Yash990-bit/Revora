@@ -84,7 +84,7 @@ def generate_leads(campaign_id: str, background_tasks: BackgroundTasks, db: Sess
 @router.get("/{campaign_id}/leads")
 def get_leads(campaign_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Fetches all leads currently stored for a specific campaign securely."""
-    return db.query(Lead).join(Campaign).filter(Lead.campaign_id == campaign_id, Campaign.user_id == str(current_user.id)).all()
+    return db.query(Lead).join(Campaign, Lead.campaign_id == Campaign.id).filter(Lead.campaign_id == campaign_id, Campaign.user_id == str(current_user.id)).all()
 
 @router.get("/all-leads")
 def get_all_leads(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):

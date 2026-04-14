@@ -1,10 +1,7 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
-
-# Load environment variables early
-load_dotenv()
+from app.core.config import settings
 
 class DatabaseManager:
     """
@@ -23,7 +20,7 @@ class DatabaseManager:
 
     def _initialize(self):
         """Standardizes engine and session pool configuration."""
-        self._database_url = os.getenv("DATABASE_URL")
+        self._database_url = settings.DATABASE_URL
         
         if not self._database_url:
             raise RuntimeError("DATABASE_URL not found in environment")
