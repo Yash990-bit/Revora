@@ -5,18 +5,27 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      actions:
+        patterns: ["*"]
 
   # Maintain dependencies for Python (Root)
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      python:
+        patterns: ["*"]
 
   # Maintain dependencies for Python (API App)
   - package-ecosystem: "pip"
     directory: "/apps/api"
     schedule:
       interval: "monthly"
+    groups:
+      python-api:
+        patterns: ["*"]
 
   # Maintain dependencies for Bun
   # (Handles root package.json and workspaces in apps/* and packages/*)
@@ -24,3 +33,6 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      bun-packages:
+        patterns: ["*"]
