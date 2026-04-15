@@ -70,3 +70,6 @@ uuid_utils==0.14.1
 uvicorn==0.44.0
 xxhash==3.6.0
 zstandard==0.25.0
+google-auth
+google-auth-oauthlib
+google-api-python-client
