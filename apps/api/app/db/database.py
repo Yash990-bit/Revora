@@ -3,13 +3,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.core.config import settings
 
+
 class DatabaseManager:
     """
     DESIGN PATTERN: Singleton
-    
+
     Centralized database connection and session management.
     Ensures a single engine instance is shared across the application.
     """
+
     _instance = None
 
     def __new__(cls):
@@ -21,22 +23,28 @@ class DatabaseManager:
     def _initialize(self):
         """Standardizes engine and session pool configuration."""
         self._database_url = settings.DATABASE_URL
-        
+
         if not self._database_url:
             raise RuntimeError("DATABASE_URL not found in environment")
 
+        connect_args = {}
+        if self._database_url.startswith("postgresql"):
+            connect_args = {
+                "keepalives": 1,
+                "keepalives_idle": 30,
+                "keepalives_interval": 10,
+                "keepalives_count": 5,
+            }
+        elif self._database_url.startswith("sqlite"):
+            # SQLite doesn't support many concurrent writers by default,
+            # this helps in some testing scenarios
+            connect_args = {"check_same_thread": False}
+
         self._engine = create_engine(
-            self._database_url,
-            pool_pre_ping=True,
-            pool_recycle=300,
-            connect_args={"keepalives": 1, "keepalives_idle": 30, "keepalives_interval": 10, "keepalives_count": 5}
+            self._database_url, pool_pre_ping=True, pool_recycle=300, connect_args=connect_args
         )
-        
-        self._session_factory = sessionmaker(
-            autocommit=False,
-            autoflush=False,
-            bind=self._engine
-        )
+
+        self._session_factory = sessionmaker(autocommit=False, autoflush=False, bind=self._engine)
 
     @property
     def engine(self):
@@ -45,6 +53,7 @@ class DatabaseManager:
     @property
     def session_factory(self):
         return self._session_factory
+
 
 # Global instance for easier access while maintaining Singleton behavior
 db_manager = DatabaseManager()

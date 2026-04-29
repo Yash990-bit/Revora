@@ -8,7 +8,7 @@ class TestLeadService:
 
     def test_lead_creation(self, mock_db_session):
         """Test lead creation."""
-        from app.models.leads import Lead
+        from app.models.leads import Leads
 
         lead_data = {
             "email": "test@example.com",

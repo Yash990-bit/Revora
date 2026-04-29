@@ -7,6 +7,12 @@ from pathlib import Path
 # Add the app directory to the Python path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+# Set test environment variables before any app imports
+os.environ["DATABASE_URL"] = "sqlite:///:memory:"
+os.environ["SECRET_KEY"] = "test-secret-key-for-unit-tests-only"
+os.environ["ALGORITHM"] = "HS256"
+os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"] = "30"
+
 import pytest
 from fastapi.testclient import TestClient
 
