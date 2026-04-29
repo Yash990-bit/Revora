@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState, ReactNode } from "react";
-import Link from "next/link";
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState, ReactNode } from 'react';
+import Link from 'next/link';
 import {
   LayoutDashboard,
   Megaphone,
@@ -17,8 +17,8 @@ import {
   Puzzle,
   LucideIcon,
   CheckCircle2,
-} from "lucide-react";
-import { authFetch } from "@/utils/api";
+} from 'lucide-react';
+import { authFetch } from '@/utils/api';
 
 interface SidebarItemProps {
   icon: LucideIcon;
@@ -31,13 +31,11 @@ const SidebarItem = ({ icon: Icon, label, active, href }: SidebarItemProps) => (
   <Link
     href={href}
     className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group ${
-      active
-        ? "bg-[#f05a28]/10 text-[#f05a28]"
-        : "text-white/40 hover:bg-white/5 hover:text-white"
+      active ? 'bg-[#f05a28]/10 text-[#f05a28]' : 'text-white/40 hover:bg-white/5 hover:text-white'
     }`}
   >
     <Icon
-      className={`h-4 w-4 shrink-0 ${active ? "text-[#f05a28]" : "group-hover:text-white"} transition-colors`}
+      className={`h-4 w-4 shrink-0 ${active ? 'text-[#f05a28]' : 'group-hover:text-white'} transition-colors`}
     />
     <span className="font-semibold text-sm">{label}</span>
   </Link>
@@ -53,22 +51,22 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     company_name?: string | null;
   } | null>(null);
 
-  const [onboardingData, setOnboardingData] = useState({ company_name: "", role: "Founder" });
+  const [onboardingData, setOnboardingData] = useState({ company_name: '', role: 'Founder' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
-      const tokenFromUrl = urlParams.get("token");
-      const userFromUrl = urlParams.get("user");
-      
+      const tokenFromUrl = urlParams.get('token');
+      const userFromUrl = urlParams.get('user');
+
       if (tokenFromUrl) {
-        localStorage.setItem("token", tokenFromUrl);
+        localStorage.setItem('token', tokenFromUrl);
         if (userFromUrl) {
           try {
             const parsedUser = JSON.parse(decodeURIComponent(userFromUrl));
-            localStorage.setItem("user", JSON.stringify(parsedUser));
+            localStorage.setItem('user', JSON.stringify(parsedUser));
             setUser(parsedUser);
           } catch (e) {
             console.error(e);
@@ -78,12 +76,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         window.history.replaceState({}, document.title, window.location.pathname);
         setIsReady(true);
       } else {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
         if (!token) {
-          router.push("/auth/login");
+          router.push('/auth/login');
           return;
         }
-        const storedUser = localStorage.getItem("user");
+        const storedUser = localStorage.getItem('user');
         if (storedUser) setUser(JSON.parse(storedUser));
         setIsReady(true);
       }
@@ -91,28 +89,28 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   }, [router]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    router.push("/auth/login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    router.push('/auth/login');
   };
 
   const handleOnboardingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       const res = await authFetch(`${API_URL}/auth/onboarding`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(onboardingData)
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(onboardingData),
       });
       if (res.ok) {
         const data = await res.json();
         const updatedUser = { ...user, company_name: data.company_name, role: data.role };
-        localStorage.setItem("user", JSON.stringify(updatedUser));
+        localStorage.setItem('user', JSON.stringify(updatedUser));
         setUser(updatedUser);
       }
-    } catch(e) {
+    } catch (e) {
       console.error(e);
     }
     setIsSubmitting(false);
@@ -127,29 +125,37 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
               <Zap className="w-48 h-48 text-[#f05a28]" />
             </div>
-            
+
             <h2 className="text-2xl font-black mb-2 tracking-tight">Complete your profile</h2>
-            <p className="text-white/50 text-sm mb-6">Tell us a bit about your organization so we can tailor your outreach campaigns.</p>
-            
+            <p className="text-white/50 text-sm mb-6">
+              Tell us a bit about your organization so we can tailor your outreach campaigns.
+            </p>
+
             <form onSubmit={handleOnboardingSubmit} className="space-y-4 relative z-10">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-white/50 mb-1.5">Company Name</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-white/50 mb-1.5">
+                  Company Name
+                </label>
                 <input
                   required
                   type="text"
                   value={onboardingData.company_name}
-                  onChange={e => setOnboardingData({...onboardingData, company_name: e.target.value})}
+                  onChange={(e) =>
+                    setOnboardingData({ ...onboardingData, company_name: e.target.value })
+                  }
                   className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#f05a28] transition-colors placeholder:text-white/20"
                   placeholder="e.g. Acme Corp"
                 />
               </div>
-              
+
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-white/50 mb-1.5">Your Role</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-white/50 mb-1.5">
+                  Your Role
+                </label>
                 <select
                   required
                   value={onboardingData.role}
-                  onChange={e => setOnboardingData({...onboardingData, role: e.target.value})}
+                  onChange={(e) => setOnboardingData({ ...onboardingData, role: e.target.value })}
                   className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#f05a28] transition-colors appearance-none"
                 >
                   <option value="Founder">Founder / CEO</option>
@@ -164,7 +170,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 disabled={isSubmitting}
                 className="w-full bg-[#f05a28] text-white rounded-xl py-3.5 px-4 font-bold text-sm tracking-wide mt-6 hover:bg-[#d44e22] transition-colors shadow-[0_4px_24px_rgba(240,90,40,0.4)] flex items-center justify-center gap-2"
               >
-                {isSubmitting ? "Saving..." : "Start Growing"} <CheckCircle2 className="w-4 h-4" />
+                {isSubmitting ? 'Saving...' : 'Start Growing'} <CheckCircle2 className="w-4 h-4" />
               </button>
             </form>
           </div>
@@ -180,9 +186,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 <Zap className="h-4 w-4 text-white fill-current" />
               </div>
               <div>
-                <p className="text-sm font-black tracking-tight uppercase">
-                  Revora
-                </p>
+                <p className="text-sm font-black tracking-tight uppercase">Revora</p>
                 <p className="text-[9px] text-white/30 uppercase tracking-[0.15em] font-bold">
                   Growth Engine
                 </p>
@@ -195,37 +199,37 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <SidebarItem
               icon={LayoutDashboard}
               label="Dashboard"
-              active={pathname === "/dashboard"}
+              active={pathname === '/dashboard'}
               href="/dashboard"
             />
             <SidebarItem
               icon={Users}
               label="Leads"
-              active={pathname === "/dashboard/leads"}
+              active={pathname === '/dashboard/leads'}
               href="/dashboard/leads"
             />
             <SidebarItem
               icon={Megaphone}
               label="Campaigns"
-              active={pathname.startsWith("/dashboard/campaigns")}
+              active={pathname.startsWith('/dashboard/campaigns')}
               href="/dashboard/campaigns"
             />
             <SidebarItem
               icon={Share2}
               label="Outreach"
-              active={pathname === "/dashboard/outreach"}
+              active={pathname === '/dashboard/outreach'}
               href="/dashboard/outreach"
             />
             <SidebarItem
               icon={Puzzle}
               label="Integrations"
-              active={pathname === "/dashboard/integrations"}
+              active={pathname === '/dashboard/integrations'}
               href="/dashboard/integrations"
             />
             <SidebarItem
               icon={Settings}
               label="Settings"
-              active={pathname === "/dashboard/settings"}
+              active={pathname === '/dashboard/settings'}
               href="/dashboard/settings"
             />
           </nav>
@@ -235,14 +239,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <div className="p-3 border-t border-white/[0.06]">
           <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/[0.03] transition-colors">
             <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#f05a28] to-orange-600 flex items-center justify-center text-white text-xs font-black shrink-0">
-              {user?.full_name?.charAt(0).toUpperCase() || "A"}
+              {user?.full_name?.charAt(0).toUpperCase() || 'A'}
             </div>
             <div className="overflow-hidden flex-1 min-w-0">
-              <p className="text-xs font-bold truncate">
-                {user?.full_name || "Agent"}
-              </p>
+              <p className="text-xs font-bold truncate">{user?.full_name || 'Agent'}</p>
               <p className="text-[10px] text-white/30 truncate uppercase tracking-wider">
-                {user?.role || "Member"}
+                {user?.role || 'Member'}
               </p>
             </div>
             <button
@@ -286,7 +288,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto bg-[#0d0d0d]">
           <div className="p-6">
-            {isReady ? children : (
+            {isReady ? (
+              children
+            ) : (
               <div className="flex items-center justify-center h-full">
                 <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/10 border-t-[#f05a28]" />
               </div>

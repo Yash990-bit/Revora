@@ -1,80 +1,66 @@
-"use client";
-import { authFetch } from "@/utils/api";
+'use client';
+import { authFetch } from '@/utils/api';
 
+import { useState, FormEvent, MouseEvent } from 'react';
+import { ArrowLeft, ChevronRight, Hash, Target, Package, FileText, Zap } from 'lucide-react';
+import Link from 'next/link';
 
-import { useState, FormEvent, MouseEvent } from "react";
-import {
-  ArrowLeft,
-  ChevronRight,
-  Hash,
-  Target,
-  Package,
-  FileText,
-  Zap,
-} from "lucide-react";
-import Link from "next/link";
-
-const LEAD_SOURCE_OPTIONS = ["Hunter"];
+const LEAD_SOURCE_OPTIONS = ['Hunter'];
 
 const inputClass =
-  "w-full bg-[#1a1a1a] border border-white/[0.08] rounded-xl py-3 px-4 text-sm text-white placeholder:text-white/25 focus:border-[#f05a28]/50 focus:ring-2 focus:ring-[#f05a28]/10 transition-all outline-none";
+  'w-full bg-[#1a1a1a] border border-white/[0.08] rounded-xl py-3 px-4 text-sm text-white placeholder:text-white/25 focus:border-[#f05a28]/50 focus:ring-2 focus:ring-[#f05a28]/10 transition-all outline-none';
 
 export default function NewCampaignPage() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [leadSources, setLeadSources] = useState<string[]>([]);
 
   const toggleSource = (e: MouseEvent<HTMLButtonElement>, source: string) => {
     e.preventDefault();
     setLeadSources((prev) =>
-      prev.includes(source)
-        ? prev.filter((s) => s !== source)
-        : [...prev, source],
+      prev.includes(source) ? prev.filter((s) => s !== source) : [...prev, source],
     );
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const campaign_name = form.get("campaign_name") as string;
-    const product_name = form.get("product_name") as string;
-    const product_description = form.get("product_description") as string;
-    const goal = form.get("goal") as string;
-    const lead_limit = parseInt((form.get("lead_limit") as string) || "10", 10);
+    const campaign_name = form.get('campaign_name') as string;
+    const product_name = form.get('product_name') as string;
+    const product_description = form.get('product_description') as string;
+    const goal = form.get('goal') as string;
+    const lead_limit = parseInt((form.get('lead_limit') as string) || '10', 10);
 
     if (leadSources.length === 0) {
-      setError("Please select at least one lead source.");
+      setError('Please select at least one lead source.');
       return;
     }
 
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
-      const response = await authFetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/campaign/create`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            campaign_name,
-            product_name,
-            product_description,
-            goal,
-            lead_sources: leadSources,
-            lead_limit,
-          }),
-        },
-      );
+      const response = await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/campaign/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          campaign_name,
+          product_name,
+          product_description,
+          goal,
+          lead_sources: leadSources,
+          lead_limit,
+        }),
+      });
 
-      if (!response.ok) throw new Error("Failed to create campaign");
+      if (!response.ok) throw new Error('Failed to create campaign');
 
       const data = await response.json();
       window.location.href = data.campaign_id
         ? `/dashboard/campaigns/${data.campaign_id}/icp`
-        : "/dashboard";
+        : '/dashboard';
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
@@ -116,9 +102,7 @@ export default function NewCampaignPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-white/50">
-                  Campaign Name
-                </label>
+                <label className="text-xs font-bold text-white/50">Campaign Name</label>
                 <div className="relative">
                   <Hash className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/20" />
                   <input
@@ -131,9 +115,7 @@ export default function NewCampaignPage() {
                 </div>
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-white/50">
-                  Product Name
-                </label>
+                <label className="text-xs font-bold text-white/50">Product Name</label>
                 <div className="relative">
                   <Package className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/20" />
                   <input
@@ -148,9 +130,7 @@ export default function NewCampaignPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-white/50">
-                Product Description
-              </label>
+              <label className="text-xs font-bold text-white/50">Product Description</label>
               <div className="relative">
                 <FileText className="absolute left-3 top-3 h-3.5 w-3.5 text-white/20" />
                 <textarea
@@ -165,9 +145,7 @@ export default function NewCampaignPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-white/50">
-                  Campaign Goal
-                </label>
+                <label className="text-xs font-bold text-white/50">Campaign Goal</label>
                 <div className="relative">
                   <Target className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/20" />
                   <input
@@ -180,9 +158,7 @@ export default function NewCampaignPage() {
                 </div>
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-white/50">
-                  Lead Limit
-                </label>
+                <label className="text-xs font-bold text-white/50">Lead Limit</label>
                 <div className="relative">
                   <Zap className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/20" />
                   <input
@@ -216,12 +192,12 @@ export default function NewCampaignPage() {
                     onClick={(e) => toggleSource(e, source)}
                     className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border text-sm font-bold transition-all ${
                       selected
-                        ? "bg-[#f05a28]/10 border-[#f05a28]/40 text-[#f05a28]"
-                        : "bg-white/[0.03] border-white/[0.08] text-white/40 hover:text-white hover:border-white/20"
+                        ? 'bg-[#f05a28]/10 border-[#f05a28]/40 text-[#f05a28]'
+                        : 'bg-white/[0.03] border-white/[0.08] text-white/40 hover:text-white hover:border-white/20'
                     }`}
                   >
                     <div
-                      className={`h-2 w-2 rounded-full transition-colors ${selected ? "bg-[#f05a28]" : "bg-white/20"}`}
+                      className={`h-2 w-2 rounded-full transition-colors ${selected ? 'bg-[#f05a28]' : 'bg-white/20'}`}
                     />
                     {source}
                   </button>

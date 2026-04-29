@@ -56,7 +56,7 @@
 .glowShape1 {
   width: 400px;
   height: 400px;
-  background: #5B6EFF;
+  background: #5b6eff;
   right: -100px;
   bottom: 10%;
 }
@@ -77,8 +77,9 @@
   top: 30%;
 }
 @media (max-width: 640px) {
-.sectionWrapper {
-  min-height: 65vw;}
+  .sectionWrapper {
+    min-height: 65vw;
+  }
 }
 @media (max-width: 768px) {
   .textContainer {
@@ -87,7 +88,16 @@
 }
 
 @media (max-width: 640px) {
-  .textContainer { padding: 0 1rem; }
-  .revealText { font-size: clamp(1.6rem, 8vw, 3rem); text-align: left; }
-  .glowShape1, .glowShape2, .glowShape3 { display: none; }
+  .textContainer {
+    padding: 0 1rem;
+  }
+  .revealText {
+    font-size: clamp(1.6rem, 8vw, 3rem);
+    text-align: left;
+  }
+  .glowShape1,
+  .glowShape2,
+  .glowShape3 {
+    display: none;
+  }
 }

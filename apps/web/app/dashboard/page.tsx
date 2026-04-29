@@ -1,8 +1,7 @@
-"use client";
-import { authFetch } from "@/utils/api";
+'use client';
+import { authFetch } from '@/utils/api';
 
-
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   Users,
   Megaphone,
@@ -12,17 +11,10 @@ import {
   ChevronRight,
   Lightbulb,
   FileText,
-} from "lucide-react";
-import Link from "next/link";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import Boneyard from "../../components/Boneyard";
+} from 'lucide-react';
+import Link from 'next/link';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import Boneyard from '../../components/Boneyard';
 
 interface Campaign {
   id: string;
@@ -47,10 +39,9 @@ export default function DashboardOverview() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await authFetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/campaign/`,
-          { cache: "no-store" },
-        );
+        const res = await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/campaign/`, {
+          cache: 'no-store',
+        });
         if (!res.ok) return;
         const data: Campaign[] = await res.json();
         setCampaigns(data);
@@ -70,47 +61,45 @@ export default function DashboardOverview() {
 
   const totalTarget = campaigns.reduce((s, c) => s + c.lead_limit, 0);
   const activeSources = [...new Set(campaigns.flatMap((c) => c.lead_sources))];
-  const qualityPct =
-    totalTarget > 0 ? Math.round((totalLeads / totalTarget) * 100) : 0;
+  const qualityPct = totalTarget > 0 ? Math.round((totalLeads / totalTarget) * 100) : 0;
 
   // Build bar chart data from campaign lead counts (up to 7 latest)
   const barData = campaignStats.slice(-7).map((c) => ({
-    name:
-      c.campaign_name.substring(0, 8) + (c.campaign_name.length > 8 ? "…" : ""),
+    name: c.campaign_name.substring(0, 8) + (c.campaign_name.length > 8 ? '…' : ''),
     target: c.lead_limit,
     generated: c.lead_count,
   }));
 
   const stats = [
     {
-      label: "Total Leads",
-      value: loading ? "—" : totalLeads.toLocaleString(),
+      label: 'Total Leads',
+      value: loading ? '—' : totalLeads.toLocaleString(),
       icon: Users,
       sub: `${totalTarget.toLocaleString()} target`,
     },
     {
-      label: "Campaigns",
-      value: loading ? "—" : campaigns.length.toString(),
+      label: 'Campaigns',
+      value: loading ? '—' : campaigns.length.toString(),
       icon: Megaphone,
-      sub: "all time",
+      sub: 'all time',
     },
     {
-      label: "Lead Sources",
-      value: loading ? "—" : activeSources.length.toString(),
+      label: 'Lead Sources',
+      value: loading ? '—' : activeSources.length.toString(),
       icon: Target,
-      sub: activeSources.join(", ") || "none",
+      sub: activeSources.join(', ') || 'none',
     },
     {
-      label: "Lead Target",
-      value: loading ? "—" : totalTarget.toLocaleString(),
+      label: 'Lead Target',
+      value: loading ? '—' : totalTarget.toLocaleString(),
       icon: TrendingUp,
-      sub: "across all campaigns",
+      sub: 'across all campaigns',
     },
     {
-      label: "Quality Score",
-      value: loading ? "—" : `${qualityPct}%`,
+      label: 'Quality Score',
+      value: loading ? '—' : `${qualityPct}%`,
       icon: Zap,
-      sub: "leads generated vs target",
+      sub: 'leads generated vs target',
     },
   ];
 
@@ -119,9 +108,7 @@ export default function DashboardOverview() {
       <div className="space-y-6 animate-in fade-in duration-500">
         <div className="flex items-end justify-between">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-white">
-              Dashboard Overview
-            </h1>
+            <h1 className="text-2xl font-bold tracking-tight text-white">Dashboard Overview</h1>
             <p className="text-sm text-white/40 mt-0.5">
               Real-time performance tracking for Revora Growth Engine
             </p>
@@ -138,9 +125,7 @@ export default function DashboardOverview() {
       {/* Header */}
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">
-            Dashboard Overview
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight text-white">Dashboard Overview</h1>
           <p className="text-sm text-white/40 mt-0.5">
             Real-time performance tracking for Revora Growth Engine
           </p>
@@ -192,11 +177,8 @@ export default function DashboardOverview() {
             </div>
           ) : campaignStats.length === 0 ? (
             <div className="py-16 text-center text-white/30 text-sm">
-              No campaigns yet.{" "}
-              <Link
-                href="/dashboard/campaigns/new"
-                className="text-[#f05a28] hover:underline"
-              >
+              No campaigns yet.{' '}
+              <Link href="/dashboard/campaigns/new" className="text-[#f05a28] hover:underline">
                 Create one →
               </Link>
             </div>
@@ -229,18 +211,14 @@ export default function DashboardOverview() {
                       <p className="text-sm font-bold text-white truncate max-w-[160px]">
                         {c.campaign_name}
                       </p>
-                      <p className="text-[11px] text-white/30 truncate max-w-[160px]">
-                        {c.goal}
-                      </p>
+                      <p className="text-[11px] text-white/30 truncate max-w-[160px]">{c.goal}</p>
                     </td>
                     <td className="px-4 py-3.5">
                       <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#f05a28]/10 text-[#f05a28] border border-[#f05a28]/20">
-                        {c.lead_sources?.[0] || "—"}
+                        {c.lead_sources?.[0] || '—'}
                       </span>
                     </td>
-                    <td className="px-4 py-3.5 text-sm text-white font-bold">
-                      {c.lead_limit}
-                    </td>
+                    <td className="px-4 py-3.5 text-sm text-white font-bold">{c.lead_limit}</td>
                     <td className="px-4 py-3.5 text-sm text-[#f05a28] font-black">
                       {c.lead_count}
                     </td>
@@ -285,7 +263,7 @@ export default function DashboardOverview() {
                   </div>
                   <p className="text-xs text-white/70 leading-relaxed">
                     {totalLeads === 0
-                      ? `${campaigns.length} campaign${campaigns.length > 1 ? "s" : ""} deployed but no leads generated yet. Check ICP target domains.`
+                      ? `${campaigns.length} campaign${campaigns.length > 1 ? 's' : ''} deployed but no leads generated yet. Check ICP target domains.`
                       : `${totalLeads} leads generated across ${campaigns.length} campaigns. Keep an eye on reply rates.`}
                   </p>
                 </div>
@@ -298,9 +276,9 @@ export default function DashboardOverview() {
                     </p>
                   </div>
                   <p className="text-xs text-white/50 leading-relaxed">
-                    {activeSources.includes("Hunter")
-                      ? "Hunter.io is active. Target company domains directly for higher email accuracy."
-                      : "Add Hunter.io as a lead source to access verified company email addresses."}
+                    {activeSources.includes('Hunter')
+                      ? 'Hunter.io is active. Target company domains directly for higher email accuracy.'
+                      : 'Add Hunter.io as a lead source to access verified company email addresses.'}
                   </p>
                 </div>
 
@@ -316,7 +294,7 @@ export default function DashboardOverview() {
                       ? `${qualityPct}% of your lead target has been filled. Consider expanding to new industries.`
                       : qualityPct > 0
                         ? `${qualityPct}% lead target fulfilled. Try narrowing your ICP by job title for better match rates.`
-                        : "Start generating leads by setting up ICP filters for your active campaigns."}
+                        : 'Start generating leads by setting up ICP filters for your active campaigns.'}
                   </p>
                 </div>
               </>
@@ -330,9 +308,7 @@ export default function DashboardOverview() {
         {/* Outreach / Campaign Activity Chart */}
         <div className="rounded-xl bg-white/[0.02] border border-white/[0.06] p-5">
           <div className="flex items-center justify-between mb-5">
-            <p className="text-sm font-bold text-white">
-              Campaign Lead Activity
-            </p>
+            <p className="text-sm font-bold text-white">Campaign Lead Activity</p>
             <div className="flex items-center gap-3 text-[10px] font-bold text-white/40 uppercase tracking-widest">
               <span className="flex items-center gap-1">
                 <span className="h-2 w-2 rounded-full bg-[#f05a28]/40 inline-block" />
@@ -346,38 +322,33 @@ export default function DashboardOverview() {
           </div>
           {loading || barData.length === 0 ? (
             <div className="h-40 flex items-center justify-center text-white/20 text-sm">
-              {loading ? "Loading…" : "No campaign data yet."}
+              {loading ? 'Loading…' : 'No campaign data yet.'}
             </div>
           ) : (
             <ResponsiveContainer width="100%" height={160}>
               <BarChart data={barData} barGap={4}>
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: "#ffffff30", fontSize: 10 }}
+                  tick={{ fill: '#ffffff30', fontSize: 10 }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fill: "#ffffff30", fontSize: 10 }}
+                  tick={{ fill: '#ffffff30', fontSize: 10 }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <Tooltip
                   contentStyle={{
-                    background: "#111",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: '#111',
+                    border: '1px solid rgba(255,255,255,0.08)',
                     borderRadius: 8,
                     fontSize: 12,
                   }}
-                  labelStyle={{ color: "#fff" }}
-                  itemStyle={{ color: "#f05a28" }}
+                  labelStyle={{ color: '#fff' }}
+                  itemStyle={{ color: '#f05a28' }}
                 />
-                <Bar
-                  dataKey="target"
-                  fill="#f05a28"
-                  opacity={0.25}
-                  radius={[4, 4, 0, 0]}
-                />
+                <Bar dataKey="target" fill="#f05a28" opacity={0.25} radius={[4, 4, 0, 0]} />
                 <Bar dataKey="generated" fill="#f05a28" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -414,7 +385,7 @@ export default function DashboardOverview() {
                   strokeWidth="10"
                   strokeDasharray={`${(2 * Math.PI * 40 * qualityPct) / 100} ${2 * Math.PI * 40}`}
                   strokeLinecap="round"
-                  style={{ transition: "stroke-dasharray 0.6s ease" }}
+                  style={{ transition: 'stroke-dasharray 0.6s ease' }}
                 />
               </svg>
               <div className="absolute text-center">
@@ -428,11 +399,9 @@ export default function DashboardOverview() {
             <div className="space-y-4 flex-1">
               <div>
                 <div className="flex justify-between text-xs mb-1.5">
-                  <span className="text-white/50 font-medium">
-                    Leads Generated
-                  </span>
+                  <span className="text-white/50 font-medium">Leads Generated</span>
                   <span className="text-white font-black">
-                    {loading ? "—" : totalLeads.toLocaleString()}
+                    {loading ? '—' : totalLeads.toLocaleString()}
                   </span>
                 </div>
                 <div className="h-1 bg-white/5 rounded-full">
@@ -444,13 +413,9 @@ export default function DashboardOverview() {
               </div>
               <div>
                 <div className="flex justify-between text-xs mb-1.5">
-                  <span className="text-white/50 font-medium">
-                    Remaining Target
-                  </span>
+                  <span className="text-white/50 font-medium">Remaining Target</span>
                   <span className="text-white font-black">
-                    {loading
-                      ? "—"
-                      : Math.max(0, totalTarget - totalLeads).toLocaleString()}
+                    {loading ? '—' : Math.max(0, totalTarget - totalLeads).toLocaleString()}
                   </span>
                 </div>
                 <div className="h-1 bg-white/5 rounded-full">

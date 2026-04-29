@@ -1,62 +1,62 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import s from "./Pricing.module.css";
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import s from './Pricing.module.css';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
 /* ── Plan Data ── */
 const PLANS = [
   {
-    name: "Studio",
-    price: "$49",
-    planType: "Basic",
-    seats: "2",
+    name: 'Studio',
+    price: '$49',
+    planType: 'Basic',
+    seats: '2',
     features: [
-      { text: "Smart Deployment", bold: false },
-      { text: "Basic Monitoring", bold: false },
-      { text: "Core Security", bold: false },
-      { text: "Email Support", bold: false },
-      { text: "5 team seats", bold: false },
-      { text: "Basic Analytics", bold: false },
-      { text: "Standard API", bold: false },
+      { text: 'Smart Deployment', bold: false },
+      { text: 'Basic Monitoring', bold: false },
+      { text: 'Core Security', bold: false },
+      { text: 'Email Support', bold: false },
+      { text: '5 team seats', bold: false },
+      { text: 'Basic Analytics', bold: false },
+      { text: 'Standard API', bold: false },
     ],
   },
   {
-    name: "Scale",
-    price: "$89",
-    planType: "Advanced",
-    seats: "6",
+    name: 'Scale',
+    price: '$89',
+    planType: 'Advanced',
+    seats: '6',
     features: [
-      { text: "All Studio features", bold: true },
-      { text: "AI optimization", bold: false },
-      { text: "Advanced monitoring", bold: false },
-      { text: "Enhanced security", bold: false },
-      { text: "24/7 support", bold: false },
-      { text: "Auto-scaling", bold: false },
-      { text: "Full analytics", bold: false },
-      { text: "Priority API", bold: false },
+      { text: 'All Studio features', bold: true },
+      { text: 'AI optimization', bold: false },
+      { text: 'Advanced monitoring', bold: false },
+      { text: 'Enhanced security', bold: false },
+      { text: '24/7 support', bold: false },
+      { text: 'Auto-scaling', bold: false },
+      { text: 'Full analytics', bold: false },
+      { text: 'Priority API', bold: false },
     ],
   },
   {
-    name: "Supreme",
-    price: "$249",
-    planType: "Enterprise",
-    seats: "100",
+    name: 'Supreme',
+    price: '$249',
+    planType: 'Enterprise',
+    seats: '100',
     features: [
-      { text: "All Scale features", bold: true },
-      { text: "Dedicated support", bold: false },
-      { text: "Private hosting", bold: false },
-      { text: "Custom security", bold: false },
-      { text: "Training included", bold: false },
-      { text: "Priority features", bold: false },
-      { text: "Custom reporting", bold: false },
-      { text: "Enterprise SLA", bold: false },
+      { text: 'All Scale features', bold: true },
+      { text: 'Dedicated support', bold: false },
+      { text: 'Private hosting', bold: false },
+      { text: 'Custom security', bold: false },
+      { text: 'Training included', bold: false },
+      { text: 'Priority features', bold: false },
+      { text: 'Custom reporting', bold: false },
+      { text: 'Enterprise SLA', bold: false },
     ],
   },
 ];
@@ -68,7 +68,7 @@ export default function Pricing() {
   useGSAP(
     () => {
       if (!sectionRef.current) return;
-      const rows = sectionRef.current.querySelectorAll("[data-plan]");
+      const rows = sectionRef.current.querySelectorAll('[data-plan]');
 
       gsap.fromTo(
         rows,
@@ -77,11 +77,11 @@ export default function Pricing() {
           y: 0,
           opacity: 1,
           stagger: 0.15,
-          ease: "power3.out",
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 70%",
-            end: "top 10%",
+            start: 'top 70%',
+            end: 'top 10%',
             scrub: 1,
           },
         },
@@ -111,8 +111,8 @@ export default function Pricing() {
           </h3>
 
           <p className={s.subDesc}>
-            Scale at your own pace — choose only what you need, when you need
-            it. Nothing extra, nothing locked in.
+            Scale at your own pace — choose only what you need, when you need it. Nothing extra,
+            nothing locked in.
           </p>
         </div>
       </div>
@@ -166,10 +166,7 @@ export default function Pricing() {
             <div className={s.cellFeatures}>
               <ul className={s.featureList}>
                 {plan.features.map((f, j) => (
-                  <li
-                    key={j}
-                    className={f.bold ? s.featureBold : s.featureItem}
-                  >
+                  <li key={j} className={f.bold ? s.featureBold : s.featureItem}>
                     {f.text}
                   </li>
                 ))}

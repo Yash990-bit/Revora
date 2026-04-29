@@ -1,11 +1,15 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --animate-rotate-electric: rotateElectric 4s linear infinite;
 
   @keyframes rotateElectric {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
 
@@ -48,7 +52,6 @@
 .imgDark {
   display: none;
 }
-
 
 @media (prefers-color-scheme: dark) {
   html {

@@ -1,8 +1,7 @@
-"use client";
-import { authFetch } from "@/utils/api";
+'use client';
+import { authFetch } from '@/utils/api';
 
-
-import { useEffect, useState, use, useRef, useCallback } from "react";
+import { useEffect, useState, use, useRef, useCallback } from 'react';
 import {
   ArrowLeft,
   Download,
@@ -14,9 +13,9 @@ import {
   User,
   Check,
   ChevronDown,
-} from "lucide-react";
-import Link from "next/link";
-import Boneyard from "../../../../../components/Boneyard";
+} from 'lucide-react';
+import Link from 'next/link';
+import Boneyard from '../../../../../components/Boneyard';
 
 interface Lead {
   id: string;
@@ -34,70 +33,68 @@ interface CampaignListItem {
   status?: CampaignStatus;
 }
 
-type CampaignStatus = "active" | "paused" | "archived";
+type CampaignStatus = 'active' | 'paused' | 'archived';
 
 const STATUS_STYLES: Record<CampaignStatus, string> = {
-  active: "bg-emerald-500/10 text-emerald-400 border-emerald-500/25",
-  paused: "bg-yellow-500/10  text-yellow-400  border-yellow-500/25",
-  archived: "bg-white/5        text-white/30    border-white/10",
+  active: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25',
+  paused: 'bg-yellow-500/10  text-yellow-400  border-yellow-500/25',
+  archived: 'bg-white/5        text-white/30    border-white/10',
 };
 const DOT_STYLES: Record<CampaignStatus, string> = {
-  active: "bg-emerald-400",
-  paused: "bg-yellow-400",
-  archived: "bg-white/25",
+  active: 'bg-emerald-400',
+  paused: 'bg-yellow-400',
+  archived: 'bg-white/25',
 };
 
-export default function LeadsResultPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default function LeadsResultPage({ params }: { params: Promise<{ id: string }> }) {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [status, setStatus] = useState<CampaignStatus>("active");
+  const [status, setStatus] = useState<CampaignStatus>('active');
   const [statusOpen, setStatusOpen] = useState(false);
-  const [campaignName, setCampaignName] = useState("");
+  const [campaignName, setCampaignName] = useState('');
   const statusRef = useRef<HTMLDivElement>(null);
 
   const resolvedParams = use(params);
   const campaignId = resolvedParams.id;
 
   /* ── fetch leads ── */
-  const fetchLeads = useCallback(async (isRefresh = false) => {
-    if (isRefresh) setRefreshing(true);
-    try {
-      const res = await authFetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/campaign/${campaignId}/leads`,
-        { cache: "no-store" },
-      );
-      if (res.ok) setLeads(await res.json());
-    } catch {
-      console.error("Failed to fetch leads");
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  }, [campaignId]);
+  const fetchLeads = useCallback(
+    async (isRefresh = false) => {
+      if (isRefresh) setRefreshing(true);
+      try {
+        const res = await authFetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/campaign/${campaignId}/leads`,
+          { cache: 'no-store' },
+        );
+        if (res.ok) setLeads(await res.json());
+      } catch {
+        console.error('Failed to fetch leads');
+      } finally {
+        setLoading(false);
+        setRefreshing(false);
+      }
+    },
+    [campaignId],
+  );
 
   /* ── fetch campaign meta (name + status) ── */
   useEffect(() => {
     const fetchMeta = async () => {
       try {
-        const res = await authFetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/campaign/`,
-          { cache: "no-store" },
-        );
+        const res = await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/campaign/`, {
+          cache: 'no-store',
+        });
         if (res.ok) {
           const list: CampaignListItem[] = await res.json();
           const camp = list.find((c) => c.id === campaignId);
           if (camp) {
             setCampaignName(camp.campaign_name);
-            setStatus((camp.status as CampaignStatus) || "active");
+            setStatus((camp.status as CampaignStatus) || 'active');
           }
         }
       } catch {
-        console.error("Failed to fetch campaign metadata");
+        console.error('Failed to fetch campaign metadata');
       }
     };
     fetchMeta();
@@ -116,35 +113,25 @@ export default function LeadsResultPage({
         setStatusOpen(false);
       }
     };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
   }, []);
 
   /* ── update status ── */
   const updateStatus = async (s: CampaignStatus) => {
     setStatus(s);
     setStatusOpen(false);
-    await authFetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/campaign/${campaignId}/status`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: s }),
-      },
-    );
+    await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/campaign/${campaignId}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: s }),
+    });
   };
 
   /* ── export CSV ── */
   const exportCSV = () => {
     if (!leads.length) return;
-    const headers = [
-      "First Name",
-      "Last Name",
-      "Email",
-      "Company",
-      "Job Title",
-      "LinkedIn",
-    ];
+    const headers = ['First Name', 'Last Name', 'Email', 'Company', 'Job Title', 'LinkedIn'];
     const rows = leads.map((l) => [
       l.first_name,
       l.last_name,
@@ -153,12 +140,10 @@ export default function LeadsResultPage({
       l.job_title,
       l.linkedin,
     ]);
-    const csv = [headers, ...rows]
-      .map((r) => r.map((v) => `"${v ?? ""}"`).join(","))
-      .join("\n");
-    const blob = new Blob([csv], { type: "text/csv" });
+    const csv = [headers, ...rows].map((r) => r.map((v) => `"${v ?? ''}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = url;
     a.download = `leads_${campaignId.substring(0, 8)}.csv`;
     a.click();
@@ -177,15 +162,13 @@ export default function LeadsResultPage({
             <ArrowLeft size={16} />
           </Link>
           <div>
-            <h1 className="text-xl font-bold text-white">
-              {campaignName || "Generated Leads"}
-            </h1>
+            <h1 className="text-xl font-bold text-white">{campaignName || 'Generated Leads'}</h1>
             <p className="text-xs text-white/30 mt-0.5">
               {loading
-                ? "Fetching results…"
+                ? 'Fetching results…'
                 : leads.length > 0
                   ? `${leads.length} verified leads found`
-                  : "Agents are processing your request"}
+                  : 'Agents are processing your request'}
             </p>
           </div>
         </div>
@@ -197,33 +180,29 @@ export default function LeadsResultPage({
               onClick={() => setStatusOpen((o) => !o)}
               className={`flex items-center gap-2 pl-3 pr-2.5 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider border transition-colors ${STATUS_STYLES[status]}`}
             >
-              <span
-                className={`h-1.5 w-1.5 rounded-full shrink-0 ${DOT_STYLES[status]}`}
-              />
+              <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${DOT_STYLES[status]}`} />
               {status}
               <ChevronDown
-                className={`h-3 w-3 transition-transform ${statusOpen ? "rotate-180" : ""}`}
+                className={`h-3 w-3 transition-transform ${statusOpen ? 'rotate-180' : ''}`}
               />
             </button>
 
             {statusOpen && (
               <div className="absolute right-0 top-full mt-1.5 z-50 bg-[#1c1c1c] border border-white/10 rounded-xl shadow-2xl overflow-hidden min-w-[140px]">
-                {(["active", "paused", "archived"] as const).map((s) => (
+                {(['active', 'paused', 'archived'] as const).map((s) => (
                   <button
                     key={s}
                     onClick={() => updateStatus(s)}
                     className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 text-[11px] font-bold uppercase tracking-wider hover:bg-white/5 transition-colors ${
-                      s === "active"
-                        ? "text-emerald-400"
-                        : s === "paused"
-                          ? "text-yellow-400"
-                          : "text-white/40"
+                      s === 'active'
+                        ? 'text-emerald-400'
+                        : s === 'paused'
+                          ? 'text-yellow-400'
+                          : 'text-white/40'
                     }`}
                   >
                     <span className="flex items-center gap-2">
-                      <span
-                        className={`h-1.5 w-1.5 rounded-full ${DOT_STYLES[s]}`}
-                      />
+                      <span className={`h-1.5 w-1.5 rounded-full ${DOT_STYLES[s]}`} />
                       {s}
                     </span>
                     {status === s && <Check className="h-3 w-3" />}
@@ -239,9 +218,7 @@ export default function LeadsResultPage({
             disabled={refreshing}
             className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/40 hover:text-white text-xs font-bold transition-colors disabled:opacity-50"
           >
-            <RefreshCw
-              className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`}
-            />
+            <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? 'animate-spin' : ''}`} />
             Refresh
           </button>
 
@@ -261,10 +238,10 @@ export default function LeadsResultPage({
       {!loading && leads.length > 0 && (
         <div className="grid grid-cols-3 gap-3">
           {[
-            { label: "Total Leads", value: leads.length },
-            { label: "With Email", value: leads.filter((l) => l.email).length },
+            { label: 'Total Leads', value: leads.length },
+            { label: 'With Email', value: leads.filter((l) => l.email).length },
             {
-              label: "With LinkedIn",
+              label: 'With LinkedIn',
               value: leads.filter((l) => l.linkedin).length,
             },
           ].map((s) => (
@@ -291,8 +268,8 @@ export default function LeadsResultPage({
           </div>
           <p className="text-white font-bold">Agents are working</p>
           <p className="text-white/30 text-sm max-w-sm">
-            Your lead generation is running in the background. This page
-            refreshes every 5 seconds — results will appear here automatically.
+            Your lead generation is running in the background. This page refreshes every 5 seconds —
+            results will appear here automatically.
           </p>
           <div className="flex items-center gap-2 mt-2">
             <div className="h-1.5 w-1.5 rounded-full bg-[#f05a28] animate-pulse" />
@@ -326,15 +303,14 @@ export default function LeadsResultPage({
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#f05a28] to-orange-700 flex items-center justify-center text-white text-[11px] font-black shrink-0">
-                    {(lead.first_name?.charAt(0) || "?").toUpperCase()}
+                    {(lead.first_name?.charAt(0) || '?').toUpperCase()}
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm font-bold text-white truncate">
                       {lead.first_name} {lead.last_name}
                     </p>
                     <p className="text-[11px] text-white/30 truncate flex items-center gap-1">
-                      <Briefcase className="h-3 w-3 shrink-0" />{" "}
-                      {lead.job_title || "—"}
+                      <Briefcase className="h-3 w-3 shrink-0" /> {lead.job_title || '—'}
                     </p>
                   </div>
                 </div>
@@ -354,7 +330,7 @@ export default function LeadsResultPage({
 
                 <div className="flex items-center min-w-0">
                   <span className="text-sm text-white/60 font-medium truncate">
-                    {lead.company || "—"}
+                    {lead.company || '—'}
                   </span>
                 </div>
 

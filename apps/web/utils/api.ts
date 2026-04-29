@@ -10,7 +10,7 @@ export const authFetch = async (url: string, options: RequestInit = {}) => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = "/auth/login";
+      window.location.href = '/auth/login';
     }
   }
 

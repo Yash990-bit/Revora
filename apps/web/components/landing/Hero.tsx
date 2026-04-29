@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import styles from "./Hero.module.css";
+import React from 'react';
+import styles from './Hero.module.css';
 
 const CalendarIcon = () => (
   <svg
@@ -12,7 +12,7 @@ const CalendarIcon = () => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    style={{ width: "18px", height: "18px" }}
+    style={{ width: '18px', height: '18px' }}
   >
     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
     <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -67,7 +67,7 @@ export default function Hero() {
         <div className={styles.cardFooter}>
           <div>
             <div className={styles.cardTitle}>Sales AI Engine</div>
-            <div className={styles.cardSubtitle}>{"// Smart Sequences"}</div>
+            <div className={styles.cardSubtitle}>{'// Smart Sequences'}</div>
           </div>
           <ArrowRightIcon />
         </div>
@@ -85,7 +85,7 @@ export default function Hero() {
           <div className={styles.connector}></div>
           <button
             className={styles.primaryBtn}
-            onClick={() => window.dispatchEvent(new Event("open-launch-modal"))}
+            onClick={() => window.dispatchEvent(new Event('open-launch-modal'))}
           >
             <CalendarIcon />
             Book a Demo

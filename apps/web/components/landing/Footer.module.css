@@ -24,7 +24,7 @@
 
 /* CTA Marquee */
 .ctaMarquee {
-  background: #5B6EFF;
+  background: #5b6eff;
   color: #fff;
   padding: 12px 0;
   display: flex;
@@ -45,8 +45,12 @@
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Main CTA Content */
@@ -61,7 +65,7 @@
   font-family: var(--font-syne), sans-serif;
   font-size: clamp(4rem, 12vw, 15rem);
   font-weight: 700;
-  color: #5B6EFF;
+  color: #5b6eff;
   line-height: 0.85;
   margin-bottom: 4rem;
   text-align: center;
@@ -124,7 +128,7 @@
 }
 
 .socialIcon:hover {
-  color: #5B6EFF;
+  color: #5b6eff;
 }
 
 .offerList {
@@ -140,8 +144,8 @@
 }
 
 .offerList li::before {
-  content: "•";
-  color: #5B6EFF;
+  content: '•';
+  color: #5b6eff;
   display: inline-block;
   width: 1em;
   font-weight: bold;
@@ -202,7 +206,8 @@
   width: 100%;
 }
 
-.inputField, .textAreaField {
+.inputField,
+.textAreaField {
   width: 100%;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -213,7 +218,8 @@
   transition: border-color 0.2s;
 }
 
-.inputField:focus, .textAreaField:focus {
+.inputField:focus,
+.textAreaField:focus {
   outline: none;
   border-color: rgba(240, 90, 40, 0.5);
 }
@@ -237,12 +243,12 @@
 }
 
 .privacyLink {
-  color: #5B6EFF;
+  color: #5b6eff;
   text-decoration: none;
 }
 
 .submitBtn {
-  background: #5B6EFF;
+  background: #5b6eff;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -252,7 +258,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s, filter 0.2s;
+  transition:
+    transform 0.2s,
+    filter 0.2s;
 }
 
 .submitBtn:hover {
@@ -286,7 +294,6 @@
   align-items: center;
   gap: 12px;
 }
-
 
 /* ═════════ 2. Main Bottom Footer (Scrolls over) ═════════ */
 .mainFooter {
@@ -345,7 +352,7 @@
   font-family: var(--font-syne), sans-serif;
   font-size: clamp(3rem, 10vw, 10rem);
   font-weight: 700;
-  color: #5B6EFF;
+  color: #5b6eff;
   line-height: 1;
   letter-spacing: -0.05em;
   display: flex;
@@ -401,7 +408,7 @@
   transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
-  background: #5B6EFF;
+  background: #5b6eff;
   border-radius: 50%;
 }
 
@@ -445,7 +452,7 @@
 }
 
 .navBlockDot.active {
-  background: #5B6EFF;
+  background: #5b6eff;
 }
 
 .navLink {
@@ -481,7 +488,7 @@
 }
 
 .newsAsterisk {
-  color: #5B6EFF;
+  color: #5b6eff;
 }
 
 .newsForm {
@@ -509,7 +516,7 @@
 }
 
 .newsSubmit {
-  background: #5B6EFF;
+  background: #5b6eff;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -527,7 +534,7 @@
 }
 
 .newsTermsLink {
-  color: #5B6EFF;
+  color: #5b6eff;
 }
 
 .newsSpam {
@@ -590,7 +597,7 @@
   justify-content: center;
   cursor: pointer;
   transition: color 0.2s;
-  color: #5B6EFF;
+  color: #5b6eff;
 }
 
 .backToTop:hover {
@@ -605,7 +612,8 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  .leftCol, .midCol {
+  .leftCol,
+  .midCol {
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding-right: 0;
@@ -614,7 +622,9 @@
   .bottomBar {
     grid-template-columns: 1fr;
   }
-  .copyrightCol, .companyInfoCol, .socialBottomCol {
+  .copyrightCol,
+  .companyInfoCol,
+  .socialBottomCol {
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding: 1.5rem 0;
@@ -622,14 +632,38 @@
 }
 
 @media (max-width: 640px) {
-  .ctaContent { padding: 2.5rem 1rem 1.5rem; }
-  .letsTalk { font-size: clamp(2rem, 10vw, 5rem); margin-bottom: 2rem; }
-  .ctaBento { grid-template-columns: 1fr; }
-  .ctaCell { padding: 1rem; }
-  .contactGrid { grid-template-columns: 1fr; }
-  .partnerItem { padding: 0 1rem; }
-  .brandLogo { font-size: clamp(1.6rem, 8vw, 4.5rem); }
-  .bottomBar { grid-template-columns: 1fr; }
-  .copyrightCol, .companyInfoCol, .socialBottomCol { padding: 1rem 0; border-bottom: none; }
-  .navBlockTop { gap: 8px; }
+  .ctaContent {
+    padding: 2.5rem 1rem 1.5rem;
+  }
+  .letsTalk {
+    font-size: clamp(2rem, 10vw, 5rem);
+    margin-bottom: 2rem;
+  }
+  .ctaBento {
+    grid-template-columns: 1fr;
+  }
+  .ctaCell {
+    padding: 1rem;
+  }
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+  .partnerItem {
+    padding: 0 1rem;
+  }
+  .brandLogo {
+    font-size: clamp(1.6rem, 8vw, 4.5rem);
+  }
+  .bottomBar {
+    grid-template-columns: 1fr;
+  }
+  .copyrightCol,
+  .companyInfoCol,
+  .socialBottomCol {
+    padding: 1rem 0;
+    border-bottom: none;
+  }
+  .navBlockTop {
+    gap: 8px;
+  }
 }

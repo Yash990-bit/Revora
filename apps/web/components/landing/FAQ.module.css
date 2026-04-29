@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  border-left: 3px solid #5B6EFF;
+  border-left: 3px solid #5b6eff;
   padding-left: 12px;
   flex-shrink: 0;
 }
@@ -144,7 +144,7 @@
   position: absolute;
   width: 16px;
   height: 2px;
-  background: #5B6EFF;
+  background: #5b6eff;
   border-radius: 1px;
   transition: transform 0.3s ease;
 }
@@ -160,7 +160,9 @@
 .answer {
   overflow: hidden;
   max-height: 0;
-  transition: max-height 0.35s ease, padding 0.35s ease;
+  transition:
+    max-height 0.35s ease,
+    padding 0.35s ease;
   padding: 0 0 0 0;
 }
 
@@ -219,7 +221,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #5B6EFF;
+  background: #5b6eff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,7 +275,7 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #5B6EFF;
+  background: #5b6eff;
   display: flex;
   align-items: center;
   justify-content: center;

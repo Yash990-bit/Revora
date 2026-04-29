@@ -1,75 +1,72 @@
-"use client";
+'use client';
 
-import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import Navbar from "../../../components/landing/Navbar";
-import { Eye, EyeOff, Mail, Lock, User, Building } from "lucide-react";
+import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import Navbar from '../../../components/landing/Navbar';
+import { Eye, EyeOff, Mail, Lock, User, Building } from 'lucide-react';
 
 export default function SignupPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [role, setRole] = useState("founder");
+  const [role, setRole] = useState('founder');
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const full_name = form.get("full_name") as string;
-    const email = form.get("email") as string;
-    const password = form.get("password") as string;
-    const confirm_password = form.get("confirm_password") as string;
-    const company_name = form.get("company_name") as string;
+    const full_name = form.get('full_name') as string;
+    const email = form.get('email') as string;
+    const password = form.get('password') as string;
+    const confirm_password = form.get('confirm_password') as string;
+    const company_name = form.get('company_name') as string;
 
     if (!full_name || !email || !password || !confirm_password) {
-      setError("Please fill all required fields");
+      setError('Please fill all required fields');
       return;
     }
 
     if (password !== confirm_password) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
       return;
     }
 
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            full_name,
-            email,
-            password,
-            confirm_password,
-            company_name: company_name || "N/A",
-            role,
-          }),
-        },
-      );
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          full_name,
+          email,
+          password,
+          confirm_password,
+          company_name: company_name || 'N/A',
+          role,
+        }),
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.detail || "Something went wrong during signup");
+        throw new Error(data.detail || 'Something went wrong during signup');
       }
 
       if (data.access_token) {
-        localStorage.setItem("token", data.access_token);
-        window.dispatchEvent(new Event("auth-changed"));
+        localStorage.setItem('token', data.access_token);
+        window.dispatchEvent(new Event('auth-changed'));
       }
 
-      router.push(data.redirect_url || "/dashboard");
+      router.push(data.redirect_url || '/dashboard');
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError("An unknown error occurred");
+        setError('An unknown error occurred');
       }
     } finally {
       setLoading(false);
@@ -108,9 +105,7 @@ export default function SignupPage() {
             <div className="relative z-10 flex flex-col gap-12">
               <div className="flex items-center gap-3">
                 <span className="text-2xl font-black tracking-tighter text-white">
-                  <span className="text-3xl tracking-tighter text-[#5B6EFF]">
-                    R
-                  </span>
+                  <span className="text-3xl tracking-tighter text-[#5B6EFF]">R</span>
                   EVORA
                 </span>
               </div>
@@ -120,21 +115,21 @@ export default function SignupPage() {
                   Build Your <br />
                   <span className="bg-gradient-to-r from-[#5B6EFF] to-[#ff8c42] bg-clip-text text-transparent">
                     Autonomous
-                  </span>{" "}
+                  </span>{' '}
                   <br />
                   Legacy.
                 </h1>
                 <p className="max-w-md text-base leading-relaxed text-white/40 font-medium font-syne">
-                  Scale your operations beyond human limits with AI that
-                  understands your business intent.
+                  Scale your operations beyond human limits with AI that understands your business
+                  intent.
                 </p>
               </div>
 
               <div className="mt-1 space-y-2">
                 {[
-                  "Real-time adaptive neural networks",
-                  "Zero-latency inference across nodes",
-                  "Infinite horizontal scaling for agents",
+                  'Real-time adaptive neural networks',
+                  'Zero-latency inference across nodes',
+                  'Infinite horizontal scaling for agents',
                 ].map((text, i) => (
                   <div key={i} className="flex items-center gap-3 group">
                     <div className="h-1.5 w-1.5 rounded-full bg-[#5B6EFF] group-hover:scale-[2] transition-transform duration-500 shadow-[0_0_10px_#5B6EFF]"></div>
@@ -149,16 +144,10 @@ export default function SignupPage() {
             <div className="relative z-10 flex items-center justify-between border-t border-white/10 pt-6 text-[10px] font-black uppercase tracking-[0.2em] text-white/20">
               <div>© 2026 Revora Autonomous Inc.</div>
               <div className="flex gap-6">
-                <Link
-                  href="#"
-                  className="hover:text-[#5B6EFF] transition-colors"
-                >
+                <Link href="#" className="hover:text-[#5B6EFF] transition-colors">
                   Documentation
                 </Link>
-                <Link
-                  href="#"
-                  className="hover:text-[#5B6EFF] transition-colors"
-                >
+                <Link href="#" className="hover:text-[#5B6EFF] transition-colors">
                   Privacy Policy
                 </Link>
               </div>
@@ -247,7 +236,7 @@ export default function SignupPage() {
                       <input
                         className="w-full rounded-xl border border-white/5 bg-white/[0.03] py-3 pl-11 pr-11 text-sm text-white placeholder:text-white/10 outline-none transition-all duration-300 focus:border-[#5B6EFF]/40 focus:bg-[#5B6EFF]/5 focus:ring-4 focus:ring-[#5B6EFF]/10"
                         name="password"
-                        type={showPassword ? "text" : "password"}
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="••••••••••••"
                         required
                       />
@@ -256,11 +245,7 @@ export default function SignupPage() {
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors p-1"
                       >
-                        {showPassword ? (
-                          <EyeOff size={15} />
-                        ) : (
-                          <Eye size={15} />
-                        )}
+                        {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                       </button>
                     </div>
                   </div>
@@ -274,7 +259,7 @@ export default function SignupPage() {
                       <input
                         className="w-full rounded-xl border border-white/5 bg-white/[0.03] py-3 pl-11 pr-11 text-sm text-white placeholder:text-white/10 outline-none transition-all duration-300 focus:border-[#5B6EFF]/40 focus:bg-[#5B6EFF]/5 focus:ring-4 focus:ring-[#5B6EFF]/10"
                         name="confirm_password"
-                        type={showPassword ? "text" : "password"}
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="••••••••••••"
                         required
                       />
@@ -288,15 +273,15 @@ export default function SignupPage() {
                     Node Protocol
                   </label>
                   <div className="flex p-1 rounded-xl bg-white/[0.03] border border-white/5 gap-1.5">
-                    {["founder", "recruiter", "developer"].map((r) => (
+                    {['founder', 'recruiter', 'developer'].map((r) => (
                       <button
                         key={r}
                         type="button"
                         onClick={() => setRole(r)}
                         className={`flex-1 rounded-lg py-2.5 text-[10px] font-black tracking-widest uppercase transition-all duration-500 ${
                           role === r
-                            ? "bg-[#5B6EFF] text-white shadow-[0_4px_12px_rgba(240,90,40,0.4)] scale-[1.02]"
-                            : "text-white/30 hover:text-white hover:bg-white/5"
+                            ? 'bg-[#5B6EFF] text-white shadow-[0_4px_12px_rgba(240,90,40,0.4)] scale-[1.02]'
+                            : 'text-white/30 hover:text-white hover:bg-white/5'
                         }`}
                       >
                         {r}
@@ -318,7 +303,7 @@ export default function SignupPage() {
                       DEPLOYING...
                     </span>
                   ) : (
-                    "DEPLOY PROTOCOL"
+                    'DEPLOY PROTOCOL'
                   )}
                 </button>
               </form>
@@ -338,11 +323,7 @@ export default function SignupPage() {
                   href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/auth/google/login`}
                   className="flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm py-3.5 text-xs font-black uppercase tracking-widest text-[#5B6EFF] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all hover:bg-white/[0.07] hover:border-[#5B6EFF]/30 hover:text-white active:scale-95"
                 >
-                  <svg
-                    className="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.187 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
                   </svg>
                   Login with Google
@@ -351,7 +332,7 @@ export default function SignupPage() {
 
               <div className="mt-6 text-center">
                 <p className="text-xs text-white/30 font-medium">
-                  Already registered?{" "}
+                  Already registered?{' '}
                   <Link
                     href="/auth/login"
                     className="font-bold text-[#5B6EFF] hover:text-[#ff8c42] transition-colors ml-1.5 uppercase tracking-widest border-b border-[#5B6EFF]/30 pb-0.5 whitespace-nowrap"

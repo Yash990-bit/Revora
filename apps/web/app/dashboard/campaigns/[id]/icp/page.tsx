@@ -1,28 +1,16 @@
-"use client";
-import { authFetch } from "@/utils/api";
+'use client';
+import { authFetch } from '@/utils/api';
 
-
-import { useState, FormEvent, use } from "react";
-import {
-  ArrowLeft,
-  ChevronRight,
-  Briefcase,
-  MapPin,
-  Building2,
-  UserCircle,
-} from "lucide-react";
-import Link from "next/link";
+import { useState, FormEvent, use } from 'react';
+import { ArrowLeft, ChevronRight, Briefcase, MapPin, Building2, UserCircle } from 'lucide-react';
+import Link from 'next/link';
 
 const inputClass =
-  "w-full bg-[#1a1a1a] border border-white/[0.08] rounded-xl py-3 px-4 text-sm text-white placeholder:text-white/25 focus:border-[#f05a28]/50 focus:ring-2 focus:ring-[#f05a28]/10 transition-all outline-none";
+  'w-full bg-[#1a1a1a] border border-white/[0.08] rounded-xl py-3 px-4 text-sm text-white placeholder:text-white/25 focus:border-[#f05a28]/50 focus:ring-2 focus:ring-[#f05a28]/10 transition-all outline-none';
 
-export default function ICPConfigurationPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default function ICPConfigurationPage({ params }: { params: Promise<{ id: string }> }) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const resolvedParams = use(params);
   const campaignId = resolvedParams.id;
@@ -30,46 +18,42 @@ export default function ICPConfigurationPage({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const industry = form.get("industry") as string;
-    const location = form.get("location") as string;
-    const company_size = form.get("company_size") as string;
-    const job_titles = form.get("job_titles") as string;
-    const target_domain =
-      (form.get("target_domain") as string | null)?.trim() || null;
+    const industry = form.get('industry') as string;
+    const location = form.get('location') as string;
+    const company_size = form.get('company_size') as string;
+    const job_titles = form.get('job_titles') as string;
+    const target_domain = (form.get('target_domain') as string | null)?.trim() || null;
 
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
-      const icpRes = await authFetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/icp/create`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            campaign_id: campaignId,
-            industry,
-            location,
-            company_size,
-            job_titles,
-            target_domain,
-          }),
-        },
-      );
-      if (!icpRes.ok) throw new Error("Failed to save ICP Profile");
+      const icpRes = await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/icp/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          campaign_id: campaignId,
+          industry,
+          location,
+          company_size,
+          job_titles,
+          target_domain,
+        }),
+      });
+      if (!icpRes.ok) throw new Error('Failed to save ICP Profile');
 
       const genRes = await authFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/campaign/${campaignId}/generate-leads`,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
         },
       );
-      if (!genRes.ok) throw new Error("Failed to start lead generation");
+      if (!genRes.ok) throw new Error('Failed to start lead generation');
 
       window.location.href = `/dashboard/campaigns/${campaignId}/leads`;
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : 'An error occurred');
       setLoading(false);
     }
   };
@@ -85,9 +69,7 @@ export default function ICPConfigurationPage({
           <ArrowLeft size={16} />
         </Link>
         <div>
-          <h1 className="text-xl font-bold text-white">
-            Define Target Audience
-          </h1>
+          <h1 className="text-xl font-bold text-white">Define Target Audience</h1>
           <p className="text-xs text-white/30 mt-0.5">
             Set your Ideal Customer Profile (ICP) to focus lead generation.
           </p>
@@ -100,9 +82,7 @@ export default function ICPConfigurationPage({
           <div className="h-6 w-6 rounded-full bg-[#f05a28]/20 border border-[#f05a28]/40 flex items-center justify-center">
             <div className="h-2 w-2 rounded-full bg-[#f05a28]" />
           </div>
-          <span className="text-xs font-bold text-white/40 line-through">
-            Campaign Details
-          </span>
+          <span className="text-xs font-bold text-white/40 line-through">Campaign Details</span>
         </div>
         <div className="h-px flex-1 bg-white/[0.06]" />
         <div className="flex items-center gap-2">
@@ -135,16 +115,13 @@ export default function ICPConfigurationPage({
               ICP Filters
             </p>
             <p className="text-xs text-white/30">
-              Based on your ICP, our Hunter.io integration will search across
-              companies in your target industry and return verified email
-              contacts.
+              Based on your ICP, our Hunter.io integration will search across companies in your
+              target industry and return verified email contacts.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-white/50">
-                  Industry
-                </label>
+                <label className="text-xs font-bold text-white/50">Industry</label>
                 <div className="relative">
                   <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/20" />
                   <input
@@ -160,9 +137,7 @@ export default function ICPConfigurationPage({
                 </p>
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-white/50">
-                  Location
-                </label>
+                <label className="text-xs font-bold text-white/50">Location</label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/20" />
                   <input
@@ -178,9 +153,7 @@ export default function ICPConfigurationPage({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-white/50">
-                  Company Size
-                </label>
+                <label className="text-xs font-bold text-white/50">Company Size</label>
                 <div className="relative">
                   <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/20" />
                   <input
@@ -193,9 +166,7 @@ export default function ICPConfigurationPage({
                 </div>
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-white/50">
-                  Target Job Titles
-                </label>
+                <label className="text-xs font-bold text-white/50">Target Job Titles</label>
                 <div className="relative">
                   <UserCircle className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/20" />
                   <input
@@ -220,18 +191,16 @@ export default function ICPConfigurationPage({
                 className={inputClass}
               />
               <p className="text-[10px] text-[#f05a28]/60 font-bold ml-1 italic">
-                Add a company website domain to improve lead quality and
-                hit-rate.
+                Add a company website domain to improve lead quality and hit-rate.
               </p>
             </div>
 
             {/* Info box */}
             <div className="p-3.5 rounded-xl bg-[#f05a28]/5 border border-[#f05a28]/10">
               <p className="text-xs text-white/40 leading-relaxed">
-                <span className="font-bold text-[#f05a28]">How it works:</span>{" "}
-                Hunter.io will scan verified email databases across companies in
-                your chosen industry. Results appear on the next screen within
-                seconds.
+                <span className="font-bold text-[#f05a28]">How it works:</span> Hunter.io will scan
+                verified email databases across companies in your chosen industry. Results appear on
+                the next screen within seconds.
               </p>
             </div>
           </div>

@@ -1,59 +1,56 @@
-"use client";
+'use client';
 
-import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import Navbar from "../../../components/landing/Navbar";
-import { Eye, EyeOff, Mail, Lock, ShieldCheck, Globe } from "lucide-react";
+import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import Navbar from '../../../components/landing/Navbar';
+import { Eye, EyeOff, Mail, Lock, ShieldCheck, Globe } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const email = form.get("email") as string;
-    const password = form.get("password") as string;
+    const email = form.get('email') as string;
+    const password = form.get('password') as string;
 
     if (!email || !password) {
-      setError("Please fill all required fields");
+      setError('Please fill all required fields');
       return;
     }
 
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        },
-      );
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.detail || "Invalid credentials");
+        throw new Error(data.detail || 'Invalid credentials');
       }
 
       if (data.access_token) {
-        localStorage.setItem("token", data.access_token);
-        window.dispatchEvent(new Event("auth-changed"));
+        localStorage.setItem('token', data.access_token);
+        window.dispatchEvent(new Event('auth-changed'));
       }
 
-      router.push(data.redirect_url || "/dashboard");
+      router.push(data.redirect_url || '/dashboard');
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError("An unknown error occurred");
+        setError('An unknown error occurred');
       }
     } finally {
       setLoading(false);
@@ -96,9 +93,7 @@ export default function LoginPage() {
               {/* Logo */}
               <div className="flex items-center gap-3">
                 <span className="text-2xl font-black tracking-tighter text-white">
-                  <span className="text-3xl tracking-tighter text-[#5B6EFF]">
-                    R
-                  </span>
+                  <span className="text-3xl tracking-tighter text-[#5B6EFF]">R</span>
                   EVORA
                 </span>
               </div>
@@ -109,13 +104,13 @@ export default function LoginPage() {
                   The Future of <br />
                   <span className="bg-gradient-to-r from-[#5B6EFF] to-[#ff8c42] bg-clip-text text-transparent">
                     Intelligent
-                  </span>{" "}
+                  </span>{' '}
                   <br />
                   Workspace.
                 </h1>
                 <p className="max-w-md text-sm leading-relaxed text-white/35 font-medium font-syne">
-                  Join 10,000+ teams automating their workflows with
-                  Revora&apos;s next-gen autonomous agents.
+                  Join 10,000+ teams automating their workflows with Revora&apos;s next-gen
+                  autonomous agents.
                 </p>
               </div>
 
@@ -124,13 +119,13 @@ export default function LoginPage() {
                 {[
                   {
                     icon: <Globe className="h-5 w-5 text-[#5B6EFF]" />,
-                    title: "Global Scale",
-                    desc: "Deploy agents across 40+ regions instantly.",
+                    title: 'Global Scale',
+                    desc: 'Deploy agents across 40+ regions instantly.',
                   },
                   {
                     icon: <ShieldCheck className="h-5 w-5 text-[#5B6EFF]" />,
-                    title: "Security",
-                    desc: "SOC2 Type II certified infrastructure.",
+                    title: 'Security',
+                    desc: 'SOC2 Type II certified infrastructure.',
                   },
                 ].map((card, i) => (
                   <div
@@ -144,9 +139,7 @@ export default function LoginPage() {
                       <h3 className="text-sm font-bold text-white group-hover:text-[#5B6EFF] transition-colors">
                         {card.title}
                       </h3>
-                      <p className="text-xs text-white/30 leading-relaxed mt-0.5">
-                        {card.desc}
-                      </p>
+                      <p className="text-xs text-white/30 leading-relaxed mt-0.5">{card.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -157,16 +150,10 @@ export default function LoginPage() {
             <div className="relative z-10 flex items-center justify-between border-t border-white/[0.06] pt-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/20">
               <div>© 2026 Revora Autonomous Inc.</div>
               <div className="flex gap-6">
-                <Link
-                  href="#"
-                  className="hover:text-[#5B6EFF] transition-colors"
-                >
+                <Link href="#" className="hover:text-[#5B6EFF] transition-colors">
                   Documentation
                 </Link>
-                <Link
-                  href="#"
-                  className="hover:text-[#5B6EFF] transition-colors"
-                >
+                <Link href="#" className="hover:text-[#5B6EFF] transition-colors">
                   Privacy Policy
                 </Link>
               </div>
@@ -235,7 +222,7 @@ export default function LoginPage() {
                     <input
                       className="w-full rounded-xl border border-white/[0.07] bg-white/[0.04] backdrop-blur-sm py-3 pl-11 pr-11 text-sm text-white placeholder:text-white/10 outline-none transition-all duration-300 focus:border-[#5B6EFF]/40 focus:bg-[#5B6EFF]/[0.06] focus:ring-4 focus:ring-[#5B6EFF]/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
                       name="password"
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••••••"
                       required
                     />
@@ -265,7 +252,7 @@ export default function LoginPage() {
                       INITIALIZING...
                     </span>
                   ) : (
-                    "INITIALIZE LOGIN"
+                    'INITIALIZE LOGIN'
                   )}
                 </button>
               </form>
@@ -285,11 +272,7 @@ export default function LoginPage() {
                   href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/auth/google/login`}
                   className="flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm py-3.5 text-xs font-black uppercase tracking-widest text-[#5B6EFF] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all hover:bg-white/[0.07] hover:border-[#5B6EFF]/30 hover:text-white active:scale-95"
                 >
-                  <svg
-                    className="w-4 h-4"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.187 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
                   </svg>
                   Login with Google
@@ -298,7 +281,7 @@ export default function LoginPage() {
 
               <div className="mt-6 text-center">
                 <p className="text-xs text-white/25 font-medium">
-                  New to the network?{" "}
+                  New to the network?{' '}
                   <Link
                     href="/auth/signup"
                     className="font-bold text-[#5B6EFF] hover:text-[#ff8c42] transition-colors ml-1.5 uppercase tracking-widest border-b border-[#5B6EFF]/30 pb-0.5 whitespace-nowrap"

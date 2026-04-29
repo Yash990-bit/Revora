@@ -43,7 +43,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  border-left: 3px solid #5B6EFF;
+  border-left: 3px solid #5b6eff;
   padding-left: 12px;
   flex-shrink: 0;
 }
@@ -122,7 +122,7 @@
   transform: translateX(-50%);
   width: 120px;
   height: 8px;
-  background: #5B6EFF;
+  background: #5b6eff;
   filter: blur(20px);
   border-radius: 50%;
 }
@@ -192,7 +192,7 @@
 .dotActive {
   width: 24px;
   border-radius: 999px;
-  background: #5B6EFF;
+  background: #5b6eff;
   box-shadow: 0 0 8px rgba(240, 90, 40, 0.4);
 }
 
@@ -225,7 +225,7 @@
 .arrowBtn:hover {
   background: rgba(240, 90, 40, 0.1);
   border-color: rgba(240, 90, 40, 0.3);
-  color: #5B6EFF;
+  color: #5b6eff;
 }
 
 /* ── Center: Step content (animated) ── */
@@ -245,7 +245,9 @@
   color: #fff;
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .stepBody {
@@ -253,7 +255,9 @@
   color: rgba(255, 255, 255, 0.4);
   line-height: 1.7;
   max-width: 460px;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 /* ── Right: CTA ── */
@@ -271,7 +275,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #5B6EFF;
+  background: #5b6eff;
   color: #fff;
   font-size: 0.85rem;
   font-weight: 600;

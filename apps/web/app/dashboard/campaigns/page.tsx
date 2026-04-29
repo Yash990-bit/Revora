@@ -1,11 +1,10 @@
-"use client";
-import { authFetch } from "@/utils/api";
+'use client';
+import { authFetch } from '@/utils/api';
 
-
-import { useEffect, useState } from "react";
-import { Plus, ChevronRight } from "lucide-react";
-import Link from "next/link";
-import Boneyard from "../../../components/Boneyard";
+import { useEffect, useState } from 'react';
+import { Plus, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import Boneyard from '../../../components/Boneyard';
 
 interface Campaign {
   id: string;
@@ -15,36 +14,35 @@ interface Campaign {
   goal: string;
   lead_sources: string[];
   lead_limit: number;
-  status: "active" | "paused" | "archived";
+  status: 'active' | 'paused' | 'archived';
   has_icp: boolean;
   lead_count: number;
 }
 
-type TabType = "all" | "active" | "paused" | "archived";
+type TabType = 'all' | 'active' | 'paused' | 'archived';
 
 const STATUS_STYLES: Record<string, string> = {
-  active: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  paused: "bg-yellow-500/10  text-yellow-400  border-yellow-500/20",
-  archived: "bg-white/5        text-white/25    border-white/10",
+  active: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  paused: 'bg-yellow-500/10  text-yellow-400  border-yellow-500/20',
+  archived: 'bg-white/5        text-white/25    border-white/10',
 };
 const DOT_STYLES: Record<string, string> = {
-  active: "bg-emerald-400",
-  paused: "bg-yellow-400",
-  archived: "bg-white/25",
+  active: 'bg-emerald-400',
+  paused: 'bg-yellow-400',
+  archived: 'bg-white/25',
 };
 
 export default function CampaignsPage() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<TabType>("all");
+  const [tab, setTab] = useState<TabType>('all');
 
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await authFetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/campaign/`,
-          { cache: "no-store" },
-        );
+        const res = await authFetch(`${process.env.NEXT_PUBLIC_API_URL}/campaign/`, {
+          cache: 'no-store',
+        });
         if (!res.ok) return;
         const data: Campaign[] = await res.json();
         setCampaigns(data);
@@ -56,24 +54,20 @@ export default function CampaignsPage() {
   }, []);
 
   const filtered =
-    tab === "all"
-      ? campaigns
-      : campaigns.filter((c) => (c.status || "active") === tab);
+    tab === 'all' ? campaigns : campaigns.filter((c) => (c.status || 'active') === tab);
 
   const tabs: { id: TabType; label: string }[] = [
-    { id: "all", label: "All Campaigns" },
-    { id: "active", label: "Active" },
-    { id: "paused", label: "Paused" },
-    { id: "archived", label: "Archived" },
+    { id: 'all', label: 'All Campaigns' },
+    { id: 'active', label: 'Active' },
+    { id: 'paused', label: 'Paused' },
+    { id: 'archived', label: 'Archived' },
   ];
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500 font-syne">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-white">
-          Campaigns
-        </h1>
+        <h1 className="text-3xl font-bold tracking-tight text-white">Campaigns</h1>
         <p className="text-sm text-white/40 mt-1">
           Manage and monitor your growth initiatives across all channels.
         </p>
@@ -86,7 +80,7 @@ export default function CampaignsPage() {
             key={t.id}
             onClick={() => setTab(t.id)}
             className={`px-4 py-2.5 text-sm font-bold transition-all relative ${
-              tab === t.id ? "text-white" : "text-white/30 hover:text-white/60"
+              tab === t.id ? 'text-white' : 'text-white/30 hover:text-white/60'
             }`}
           >
             {t.label}
@@ -105,13 +99,10 @@ export default function CampaignsPage() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-20 text-white/30 text-sm">
-          {tab === "all" ? (
+          {tab === 'all' ? (
             <>
-              No campaigns yet.{" "}
-              <Link
-                href="/dashboard/campaigns/new"
-                className="text-[#f05a28] hover:underline"
-              >
+              No campaigns yet.{' '}
+              <Link href="/dashboard/campaigns/new" className="text-[#f05a28] hover:underline">
                 Create your first →
               </Link>
             </>
@@ -122,15 +113,9 @@ export default function CampaignsPage() {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {filtered.map((c) => {
-            const status = (c.status || "active") as
-              | "active"
-              | "paused"
-              | "archived";
-            const progress =
-              c.lead_limit > 0
-                ? Math.round((c.lead_count / c.lead_limit) * 100)
-                : 0;
-            const source = c.lead_sources?.[0]?.toUpperCase() || "HUNTER";
+            const status = (c.status || 'active') as 'active' | 'paused' | 'archived';
+            const progress = c.lead_limit > 0 ? Math.round((c.lead_count / c.lead_limit) * 100) : 0;
+            const source = c.lead_sources?.[0]?.toUpperCase() || 'HUNTER';
 
             return (
               <div
@@ -199,15 +184,11 @@ export default function CampaignsPage() {
                 <div className="px-5 pb-4">
                   <div className="flex items-center justify-between text-xs mb-2">
                     <span className="text-white/40 font-medium">
-                      Progress:{" "}
-                      <span className="text-white font-bold">
-                        {c.lead_count.toLocaleString()}
-                      </span>{" "}
+                      Progress:{' '}
+                      <span className="text-white font-bold">{c.lead_count.toLocaleString()}</span>{' '}
                       / {c.lead_limit.toLocaleString()} leads
                     </span>
-                    <span className="text-[#f05a28] font-black">
-                      {progress}%
-                    </span>
+                    <span className="text-[#f05a28] font-black">{progress}%</span>
                   </div>
                   <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
                     <div
@@ -221,26 +202,19 @@ export default function CampaignsPage() {
                 <div className="px-5 pb-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="flex -space-x-1.5">
-                      {[
-                        ...Array(
-                          Math.min(
-                            3,
-                            Math.max(1, Math.floor(c.lead_count / 10) + 1),
-                          ),
+                      {[...Array(Math.min(3, Math.max(1, Math.floor(c.lead_count / 10) + 1)))].map(
+                        (_, i) => (
+                          <div
+                            key={i}
+                            className="h-6 w-6 rounded-full bg-gradient-to-br from-[#f05a28] to-orange-700 border-2 border-[#141414] flex items-center justify-center text-[8px] font-black text-white"
+                          >
+                            {String.fromCharCode(65 + i)}
+                          </div>
                         ),
-                      ].map((_, i) => (
-                        <div
-                          key={i}
-                          className="h-6 w-6 rounded-full bg-gradient-to-br from-[#f05a28] to-orange-700 border-2 border-[#141414] flex items-center justify-center text-[8px] font-black text-white"
-                        >
-                          {String.fromCharCode(65 + i)}
-                        </div>
-                      ))}
+                      )}
                     </div>
                     {c.lead_count > 0 && (
-                      <span className="text-xs text-white/30 font-bold">
-                        +{c.lead_count}
-                      </span>
+                      <span className="text-xs text-white/30 font-bold">+{c.lead_count}</span>
                     )}
                   </div>
                   <Link
@@ -251,8 +225,7 @@ export default function CampaignsPage() {
                     }
                     className="flex items-center gap-1 text-sm font-bold hover:gap-2 transition-all text-[#f05a28]"
                   >
-                    {c.has_icp ? "View Leads" : "Setup ICP"}{" "}
-                    <ChevronRight className="h-4 w-4" />
+                    {c.has_icp ? 'View Leads' : 'Setup ICP'} <ChevronRight className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -270,9 +243,7 @@ export default function CampaignsPage() {
           <Plus className="h-5 w-5" />
         </Link>
         <p className="text-sm font-bold text-white">Start New Campaign</p>
-        <p className="text-xs text-white/30 mt-0.5">
-          Set up a new outreach flow
-        </p>
+        <p className="text-xs text-white/30 mt-0.5">Set up a new outreach flow</p>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef } from "react";
-import * as THREE from "three";
-import styles from "./QuantumFlowBackground.module.css";
+import React, { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import styles from './QuantumFlowBackground.module.css';
 
 interface TrailPoint {
   x: number;
@@ -60,11 +60,11 @@ class TouchTexture {
   }
 
   initTexture() {
-    this.canvas = document.createElement("canvas");
+    this.canvas = document.createElement('canvas');
     this.canvas.width = this.width;
     this.canvas.height = this.height;
-    this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
-    this.ctx.fillStyle = "black";
+    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+    this.ctx.fillStyle = 'black';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.texture = new THREE.Texture(this.canvas);
   }
@@ -88,7 +88,7 @@ class TouchTexture {
   }
 
   clear() {
-    this.ctx.fillStyle = "black";
+    this.ctx.fillStyle = 'black';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
@@ -133,7 +133,7 @@ class TouchTexture {
     this.ctx.shadowBlur = radius;
     this.ctx.shadowColor = `rgba(${color},${0.2 * intensity})`;
     this.ctx.beginPath();
-    this.ctx.fillStyle = "rgba(255,0,0,1)";
+    this.ctx.fillStyle = 'rgba(255,0,0,1)';
     this.ctx.arc(pos.x - offset, pos.y - offset, radius, 0, Math.PI * 2);
     this.ctx.fill();
   }
@@ -356,9 +356,7 @@ export default function QuantumFlowBackground() {
     const touchTexture = new TouchTexture();
 
     const getViewSize = () => {
-      const h = Math.abs(
-        camera.position.z * Math.tan((camera.fov * Math.PI) / 180 / 2) * 2,
-      );
+      const h = Math.abs(camera.position.z * Math.tan((camera.fov * Math.PI) / 180 / 2) * 2);
       return { width: h * camera.aspect, height: h };
     };
 
@@ -412,9 +410,9 @@ export default function QuantumFlowBackground() {
       }
     };
 
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("touchmove", handleMouseMove);
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleMouseMove);
 
     const tick = () => {
       reqId = requestAnimationFrame(tick);
@@ -428,9 +426,9 @@ export default function QuantumFlowBackground() {
 
     return () => {
       cancelAnimationFrame(reqId);
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("touchmove", handleMouseMove);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleMouseMove);
 
       // Cleanup three
       if (renderer.domElement && container) {

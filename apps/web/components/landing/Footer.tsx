@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import s from "./Footer.module.css";
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import s from './Footer.module.css';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
@@ -17,17 +17,16 @@ export default function Footer() {
 
   useGSAP(
     () => {
-      if (!ctaRef.current || !mainFooterRef.current || !containerRef.current)
-        return;
+      if (!ctaRef.current || !mainFooterRef.current || !containerRef.current) return;
 
       // Pin the CTA area while the main footer reveals from bottom
       // We achieve this visually by letting the mainFooter scroll naturally
       // over the CTA. The mainFooter has a higher z-index and solid background.
       ScrollTrigger.create({
         trigger: ctaRef.current,
-        start: "top top", // when CTA hits top of screen
+        start: 'top top', // when CTA hits top of screen
         endTrigger: containerRef.current,
-        end: "bottom bottom",
+        end: 'bottom bottom',
         pin: true,
         pinSpacing: false, // allows the next element (mainFooter) to scroll over it
       });
@@ -36,7 +35,7 @@ export default function Footer() {
   );
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -67,25 +66,13 @@ export default function Footer() {
                 <div className={s.ctaCellHeader}>
                   <div className={s.ctaCellTitle}>Follow us</div>
                   <div className={s.socialIcons}>
-                    <svg
-                      className={s.socialIcon}
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
+                    <svg className={s.socialIcon} viewBox="0 0 24 24" fill="currentColor">
                       <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                     </svg>
-                    <svg
-                      className={s.socialIcon}
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
+                    <svg className={s.socialIcon} viewBox="0 0 24 24" fill="currentColor">
                       <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                     </svg>
-                    <svg
-                      className={s.socialIcon}
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
+                    <svg className={s.socialIcon} viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z" />
                     </svg>
                   </div>
@@ -94,10 +81,7 @@ export default function Footer() {
 
               {/* What we offer */}
               <div className={s.ctaCell}>
-                <div
-                  className={s.ctaCellTitle}
-                  style={{ marginBottom: "1rem" }}
-                >
+                <div className={s.ctaCellTitle} style={{ marginBottom: '1rem' }}>
                   What we offer
                 </div>
                 <ul className={s.offerList}>
@@ -127,9 +111,7 @@ export default function Footer() {
                       </svg>
                       Digital
                     </div>
-                    <div className={s.contactItemText}>
-                      hello@autopilotsdr.com
-                    </div>
+                    <div className={s.contactItemText}>hello@autopilotsdr.com</div>
                   </div>
                   <div>
                     <div className={s.contactItemTitle}>
@@ -162,45 +144,28 @@ export default function Footer() {
             <div className={s.ctaBentoRight}>
               <div className={s.ctaCell} style={{ flex: 1 }}>
                 <div>
-                  <div className={s.formTitle}>
-                    Got a question, challenge, or idea?
-                  </div>
+                  <div className={s.formTitle}>Got a question, challenge, or idea?</div>
                   <div className={s.formDesc}>
                     Fill out the form — we&apos;ll get back to you shortly.
                   </div>
                   <div className={s.formWrap}>
                     <div className={s.inputGroup}>
-                      <input
-                        type="text"
-                        placeholder="Your Name"
-                        className={s.inputField}
-                      />
+                      <input type="text" placeholder="Your Name" className={s.inputField} />
                     </div>
                     <div className={s.inputGroup}>
-                      <input
-                        type="email"
-                        placeholder="Your Email"
-                        className={s.inputField}
-                      />
+                      <input type="email" placeholder="Your Email" className={s.inputField} />
                     </div>
                     <div className={s.inputGroup}>
-                      <input
-                        type="text"
-                        placeholder="Your Company"
-                        className={s.inputField}
-                      />
+                      <input type="text" placeholder="Your Company" className={s.inputField} />
                     </div>
                     <div className={s.inputGroup}>
-                      <textarea
-                        placeholder="Your message"
-                        className={s.textAreaField}
-                      ></textarea>
+                      <textarea placeholder="Your message" className={s.textAreaField}></textarea>
                     </div>
                   </div>
                 </div>
                 <div className={s.formFooter}>
                   <div className={s.privacyText}>
-                    By submitting, you agree to our{" "}
+                    By submitting, you agree to our{' '}
                     <a href="#" className={s.privacyLink}>
                       Privacy Policy.
                     </a>
@@ -366,19 +331,13 @@ export default function Footer() {
             </div>
 
             <div className={s.rightCol}>
-              <div className={s.newsTitle}>
-                Keep up with our journey and updates
-              </div>
+              <div className={s.newsTitle}>Keep up with our journey and updates</div>
               <div className={s.newsDesc}>
-                Get the latest news, insights directly to your inbox.{" "}
+                Get the latest news, insights directly to your inbox.{' '}
                 <span className={s.newsAsterisk}>*</span>
               </div>
               <div className={s.newsForm}>
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  className={s.newsInput}
-                />
+                <input type="text" placeholder="Your Name" className={s.newsInput} />
                 <div className={s.newsRow}>
                   <input
                     type="email"
@@ -402,23 +361,20 @@ export default function Footer() {
                 </div>
               </div>
               <div className={s.newsTerms}>
-                By submitting, you agree to our{" "}
+                By submitting, you agree to our{' '}
                 <a href="#" className={s.newsTermsLink}>
                   Terms & Service.
                 </a>
               </div>
               <div className={s.newsSpam}>
-                <span className={s.newsAsterisk}>*</span> No spam, just awesome
-                updates.
+                <span className={s.newsAsterisk}>*</span> No spam, just awesome updates.
               </div>
             </div>
           </div>
 
           <div className={s.bottomBar}>
             <div className={s.copyrightCol}>
-              <div className={s.crText}>
-                2021-2025 © [ Revora B.V. ] All rights reserved.
-              </div>
+              <div className={s.crText}>2021-2025 © [ Revora B.V. ] All rights reserved.</div>
               <div className={s.crDesigned}>
                 <svg
                   width="14"
@@ -434,23 +390,14 @@ export default function Footer() {
               </div>
             </div>
             <div className={s.companyInfoCol}>
-              <strong>Revora B.V.</strong> specializes in AI-powered sales
-              automation, helping teams scale their outbound pipelines
-              effortlessly.
+              <strong>Revora B.V.</strong> specializes in AI-powered sales automation, helping teams
+              scale their outbound pipelines effortlessly.
             </div>
             <div className={s.socialBottomCol}>
-              <svg
-                className={s.socialIcon}
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
+              <svg className={s.socialIcon} viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
               </svg>
-              <svg
-                className={s.socialIcon}
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
+              <svg className={s.socialIcon} viewBox="0 0 24 24" fill="currentColor">
                 <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
               </svg>
             </div>

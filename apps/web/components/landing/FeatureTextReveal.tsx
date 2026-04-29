@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import styles from "./FeatureTextReveal.module.css";
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import styles from './FeatureTextReveal.module.css';
 
 // Register GSAP plugins
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
@@ -16,31 +16,31 @@ export default function FeatureTextReveal() {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   const textToReveal =
-    "We handle the manual prospecting and research so you can focus on building relationships and closing deals.";
-  const words = textToReveal.split(" ");
+    'We handle the manual prospecting and research so you can focus on building relationships and closing deals.';
+  const words = textToReveal.split(' ');
 
   useGSAP(
     () => {
       if (!textRef.current || !containerRef.current) return;
 
       // Select the rendered word spans using standard string concat
-      const selector = "." + styles.word;
+      const selector = '.' + styles.word;
       const wordElements = textRef.current.querySelectorAll(selector);
 
       // Setup the ScrollTrigger animation
       gsap.to(wordElements, {
-        color: "rgba(255, 255, 255, 1)",
+        color: 'rgba(255, 255, 255, 1)',
         stagger: 0.1,
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top center",
-          end: "bottom center",
+          start: 'top center',
+          end: 'bottom center',
           scrub: true,
         },
       });
 
       // Optional parallax for the background glow shapes
-      const glowSelector = "." + styles.glowShape1;
+      const glowSelector = '.' + styles.glowShape1;
       gsap.to(glowSelector, {
         y: -200,
         scrollTrigger: {
@@ -62,11 +62,7 @@ export default function FeatureTextReveal() {
       <div className={styles.textContainer}>
         <h2 className={styles.revealText} ref={textRef}>
           {words.map((word, index) => (
-            <span
-              key={index}
-              className={styles.word}
-              style={{ color: "rgba(255, 255, 255, 0.2)" }}
-            >
+            <span key={index} className={styles.word} style={{ color: 'rgba(255, 255, 255, 0.2)' }}>
               {word}&nbsp;
             </span>
           ))}

@@ -87,7 +87,7 @@
 }
 
 .aiPrompt svg {
-  color: #5B6EFF;
+  color: #5b6eff;
 }
 
 /* Mini dashboard mockup inside card */
@@ -114,7 +114,7 @@
 
 .miniDashBtn {
   font-size: 0.45rem;
-  background: #5B6EFF;
+  background: #5b6eff;
   color: #fff;
   padding: 2px 8px;
   border-radius: 999px;
@@ -170,8 +170,8 @@
   height: 80px;
   border-radius: 50%;
   border: 6px solid rgba(255, 255, 255, 0.06);
-  border-top-color: #5B6EFF;
-  border-right-color: #5B6EFF;
+  border-top-color: #5b6eff;
+  border-right-color: #5b6eff;
   transform: rotate(45deg);
 }
 
@@ -292,7 +292,7 @@
   font-size: 0.7rem;
   font-style: italic;
   font-weight: 600;
-  color: #5B6EFF;
+  color: #5b6eff;
   text-align: center;
   z-index: 2;
 }
@@ -320,18 +320,38 @@
 }
 
 /* Position dots around the orbit */
-.intDot:nth-child(1) { top: -4px; left: 50%; transform: translateX(-50%); }
-.intDot:nth-child(2) { top: 20%; right: -2px; }
-.intDot:nth-child(3) { bottom: 20%; right: -2px; }
-.intDot:nth-child(4) { bottom: -4px; left: 50%; transform: translateX(-50%); }
-.intDot:nth-child(5) { bottom: 20%; left: -2px; }
-.intDot:nth-child(6) { top: 20%; left: -2px; }
+.intDot:nth-child(1) {
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.intDot:nth-child(2) {
+  top: 20%;
+  right: -2px;
+}
+.intDot:nth-child(3) {
+  bottom: 20%;
+  right: -2px;
+}
+.intDot:nth-child(4) {
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.intDot:nth-child(5) {
+  bottom: 20%;
+  left: -2px;
+}
+.intDot:nth-child(6) {
+  top: 20%;
+  left: -2px;
+}
 
 .intDotOrange {
   composes: intDot;
   background: rgba(240, 90, 40, 0.15);
   border-color: rgba(240, 90, 40, 0.25);
-  color: #5B6EFF;
+  color: #5b6eff;
 }
 
 /* ══════════ Card 5 — Simple Strategies ══════════ */
@@ -366,7 +386,7 @@
 }
 
 .boardCellDot::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;

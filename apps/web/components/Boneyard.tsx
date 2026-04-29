@@ -4,15 +4,9 @@ interface BoneyardProps {
   className?: string;
 }
 
-export default function Boneyard({
-  lines = 3,
-  cards = 3,
-  className = "",
-}: BoneyardProps) {
+export default function Boneyard({ lines = 3, cards = 3, className = '' }: BoneyardProps) {
   return (
-    <div
-      className={`rounded-2xl bg-[#111] border border-white/[0.06] p-5 ${className}`}
-    >
+    <div className={`rounded-2xl bg-[#111] border border-white/[0.06] p-5 ${className}`}>
       <div className="space-y-3 animate-pulse">
         <div className="h-4 w-40 rounded bg-white/10" />
         <div className="h-3 w-56 rounded bg-white/8" />
@@ -32,11 +26,7 @@ export default function Boneyard({
 
         <div className="space-y-2 pt-2">
           {Array.from({ length: lines }).map((_, i) => (
-            <div
-              key={i}
-              className="h-3 rounded bg-white/8"
-              style={{ width: `${95 - i * 8}%` }}
-            />
+            <div key={i} className="h-3 rounded bg-white/8" style={{ width: `${95 - i * 8}%` }} />
           ))}
         </div>
       </div>

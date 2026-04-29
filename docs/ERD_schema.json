@@ -31,7 +31,12 @@
       "name": "icp_filters",
       "columns": [
         { "name": "id", "type": "varchar", "primary_key": true },
-        { "name": "campaign_id", "type": "varchar", "foreign_key": true, "references": "campaign.id" },
+        {
+          "name": "campaign_id",
+          "type": "varchar",
+          "foreign_key": true,
+          "references": "campaign.id"
+        },
         { "name": "industry", "type": "varchar" },
         { "name": "location", "type": "varchar" },
         { "name": "company_size", "type": "varchar" },
@@ -42,7 +47,12 @@
       "name": "leads",
       "columns": [
         { "name": "id", "type": "varchar", "primary_key": true },
-        { "name": "campaign_id", "type": "varchar", "foreign_key": true, "references": "campaign.id" },
+        {
+          "name": "campaign_id",
+          "type": "varchar",
+          "foreign_key": true,
+          "references": "campaign.id"
+        },
         { "name": "first_name", "type": "varchar" },
         { "name": "last_name", "type": "varchar" },
         { "name": "email", "type": "varchar" },
@@ -56,7 +66,12 @@
       "name": "generated_emails",
       "columns": [
         { "name": "id", "type": "uuid", "primary_key": true },
-        { "name": "campaign_id", "type": "varchar", "foreign_key": true, "references": "campaign.id" },
+        {
+          "name": "campaign_id",
+          "type": "varchar",
+          "foreign_key": true,
+          "references": "campaign.id"
+        },
         { "name": "lead_id", "type": "varchar", "foreign_key": true, "references": "leads.id" },
         { "name": "subject", "type": "varchar" },
         { "name": "body_content", "type": "text" },

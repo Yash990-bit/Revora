@@ -1,37 +1,31 @@
-"use client";
+'use client';
 
-import {
-  ShieldCheck,
-  MoreVertical,
-  Plus,
-  Search,
-  CheckCircle2,
-} from "lucide-react";
+import { ShieldCheck, MoreVertical, Plus, Search, CheckCircle2 } from 'lucide-react';
 
 const TEAM_MEMBERS = [
   {
-    name: "Alex Rivera",
-    email: "alex@revora.ai",
-    role: "Admin",
-    status: "Active",
-    accessLevel: "Full",
-    avatar: "AR",
+    name: 'Alex Rivera',
+    email: 'alex@revora.ai',
+    role: 'Admin',
+    status: 'Active',
+    accessLevel: 'Full',
+    avatar: 'AR',
   },
   {
-    name: "Sarah Chen",
-    email: "sarah@revora.ai",
-    role: "Analyst",
-    status: "Active",
-    accessLevel: "Read-only",
-    avatar: "SC",
+    name: 'Sarah Chen',
+    email: 'sarah@revora.ai',
+    role: 'Analyst',
+    status: 'Active',
+    accessLevel: 'Read-only',
+    avatar: 'SC',
   },
   {
-    name: "Marcus Thorne",
-    email: "marcus@revora.ai",
-    role: "Manager",
-    status: "Invite Pending",
-    accessLevel: "Moderate",
-    avatar: "MT",
+    name: 'Marcus Thorne',
+    email: 'marcus@revora.ai',
+    role: 'Manager',
+    status: 'Invite Pending',
+    accessLevel: 'Moderate',
+    avatar: 'MT',
   },
 ];
 
@@ -61,12 +55,9 @@ export default function TeamPage() {
             <ShieldCheck size={24} />
           </div>
           <div>
-            <h3 className="font-bold text-white">
-              Advanced Security Protocols
-            </h3>
+            <h3 className="font-bold text-white">Advanced Security Protocols</h3>
             <p className="text-xs text-gray-400 mt-0.5">
-              SOC2 Type II multi-factor authentication is active for all
-              members.
+              SOC2 Type II multi-factor authentication is active for all members.
             </p>
           </div>
         </div>
@@ -80,10 +71,7 @@ export default function TeamPage() {
       <div className="rounded-[32px] overflow-hidden border border-white/[0.05] bg-white/[0.01] backdrop-blur-xl">
         <div className="p-4 border-b border-white/[0.05] flex items-center gap-4">
           <div className="relative flex-1">
-            <Search
-              size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-            />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
               type="text"
               placeholder="Search by name or email..."
@@ -111,22 +99,15 @@ export default function TeamPage() {
             </thead>
             <tbody className="divide-y divide-white/[0.03]">
               {TEAM_MEMBERS.map((member) => (
-                <tr
-                  key={member.email}
-                  className="group hover:bg-white/[0.03] transition-colors"
-                >
+                <tr key={member.email} className="group hover:bg-white/[0.03] transition-colors">
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/[0.07] flex items-center justify-center font-black text-xs text-white group-hover:border-[#5B6EFF]/30 transition-colors">
                         {member.avatar}
                       </div>
                       <div>
-                        <div className="text-sm font-bold text-white">
-                          {member.name}
-                        </div>
-                        <div className="text-xs text-gray-500 font-medium">
-                          {member.email}
-                        </div>
+                        <div className="text-sm font-bold text-white">{member.name}</div>
+                        <div className="text-xs text-gray-500 font-medium">{member.email}</div>
                       </div>
                     </div>
                   </td>
@@ -139,12 +120,10 @@ export default function TeamPage() {
                     <div className="flex flex-col items-center">
                       <span
                         className={`flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest ${
-                          member.status === "Active"
-                            ? "text-emerald-400"
-                            : "text-amber-400"
+                          member.status === 'Active' ? 'text-emerald-400' : 'text-amber-400'
                         }`}
                       >
-                        {member.status === "Active" ? (
+                        {member.status === 'Active' ? (
                           <CheckCircle2 size={12} />
                         ) : (
                           <div className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />

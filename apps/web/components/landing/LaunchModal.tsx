@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import styles from "./LaunchModal.module.css";
+import React, { useEffect, useState } from 'react';
+import styles from './LaunchModal.module.css';
 
 export default function LaunchModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     const handleOpen = () => setIsOpen(true);
-    window.addEventListener("open-launch-modal", handleOpen);
-    return () => window.removeEventListener("open-launch-modal", handleOpen);
+    window.addEventListener('open-launch-modal', handleOpen);
+    return () => window.removeEventListener('open-launch-modal', handleOpen);
   }, []);
 
   const handleClose = () => {
     setIsOpen(false);
     setTimeout(() => {
       setSubmitted(false);
-      setEmail("");
+      setEmail('');
     }, 400); // reset state after closing animation
   };
 
@@ -29,18 +29,11 @@ export default function LaunchModal() {
   };
 
   return (
-    <div
-      className={`${styles.overlay} ${isOpen ? styles.show : ""}`}
-      onClick={handleClose}
-    >
+    <div className={`${styles.overlay} ${isOpen ? styles.show : ''}`} onClick={handleClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.glowOrange} />
 
-        <button
-          className={styles.closeBtn}
-          onClick={handleClose}
-          aria-label="Close"
-        >
+        <button className={styles.closeBtn} onClick={handleClose} aria-label="Close">
           <svg
             width="20"
             height="20"
@@ -71,7 +64,7 @@ export default function LaunchModal() {
           <p className={styles.description}>
             {submitted
               ? "Thanks for joining! We'll be in touch."
-              : "Reimagine your outbound workflow. Join the waitlist to be the first to experience Revora."}
+              : 'Reimagine your outbound workflow. Join the waitlist to be the first to experience Revora.'}
           </p>
 
           {!submitted && (

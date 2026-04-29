@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  border-left: 3px solid #5B6EFF;
+  border-left: 3px solid #5b6eff;
   padding-left: 12px;
   flex-shrink: 0;
 }
@@ -120,7 +120,7 @@
   position: relative;
   z-index: 2;
   padding-left: 12px;
-  border-left: 3px solid #5B6EFF;
+  border-left: 3px solid #5b6eff;
 }
 
 .imageBox {
@@ -168,7 +168,7 @@
   transform: translateX(-50%);
   width: 100px;
   height: 6px;
-  background: #5B6EFF;
+  background: #5b6eff;
   filter: blur(16px);
   border-radius: 50%;
 }
@@ -224,12 +224,12 @@
   width: 28px;
   height: 16px;
   border-radius: 999px;
-  background: #5B6EFF;
+  background: #5b6eff;
   position: relative;
 }
 
 .toggleDot::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 3px;
   right: 3px;
@@ -304,7 +304,7 @@
 }
 
 .featureItem::before {
-  content: "•";
+  content: '•';
   color: rgba(255, 255, 255, 0.15);
   font-size: 0.6rem;
   flex-shrink: 0;
@@ -329,7 +329,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #5B6EFF;
+  background: #5b6eff;
   color: #fff;
   font-size: 0.8rem;
   font-weight: 600;
@@ -338,7 +338,9 @@
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 16px -4px rgba(240, 90, 40, 0.35);
-  transition: filter 0.2s, transform 0.2s;
+  transition:
+    filter 0.2s,
+    transform 0.2s;
   white-space: nowrap;
 }
 
@@ -382,7 +384,7 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #5B6EFF;
+  background: #5b6eff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -427,11 +429,31 @@
 }
 
 @media (max-width: 640px) {
-  .section { padding: 4rem 1rem 3rem; }
-  .heading { font-size: clamp(1.6rem, 8vw, 2.8rem); }
-  .planRow { padding: 0.75rem; grid-template-columns: 1fr; min-height: auto; }
-  .cellImage { display: none; }
-  .cellPrice, .cellPlan, .cellFeatures, .cellCTA { border-left: none; border-top: 1px solid rgba(255,255,255,0.04); }
-  .featureList { font-size: 0.78rem; }
-  .footer { padding-top: 1.5rem; }
+  .section {
+    padding: 4rem 1rem 3rem;
+  }
+  .heading {
+    font-size: clamp(1.6rem, 8vw, 2.8rem);
+  }
+  .planRow {
+    padding: 0.75rem;
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .cellImage {
+    display: none;
+  }
+  .cellPrice,
+  .cellPlan,
+  .cellFeatures,
+  .cellCTA {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .featureList {
+    font-size: 0.78rem;
+  }
+  .footer {
+    padding-top: 1.5rem;
+  }
 }

@@ -1,51 +1,51 @@
-"use client";
+'use client';
 
-import React, { useState, useRef, useCallback } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import s from "./ProcessSteps.module.css";
+import React, { useState, useRef, useCallback } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import s from './ProcessSteps.module.css';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
 /* ── Step Data (5 steps) ── */
 const STEPS = [
   {
-    title: "1 — Define Target ICP",
-    body: "Tell us about your Ideal Customer Profile. Select industry, company size, revenue, tech stack, and location. Our AI uses this criteria to build exactly the lists you need.",
-    stat: "2",
-    statUnit: "min",
-    statLabel: "Average setup time",
+    title: '1 — Define Target ICP',
+    body: 'Tell us about your Ideal Customer Profile. Select industry, company size, revenue, tech stack, and location. Our AI uses this criteria to build exactly the lists you need.',
+    stat: '2',
+    statUnit: 'min',
+    statLabel: 'Average setup time',
   },
   {
-    title: "2 — AI Discovery",
-    body: "Revora searches millions of records instantly. We automatically find companies matching your filters and pinpoint the key decision-makers (CEOs, Founders, CMOs) complete with verified contact info.",
-    stat: "1M+",
-    statUnit: "",
-    statLabel: "Filtered records",
+    title: '2 — AI Discovery',
+    body: 'Revora searches millions of records instantly. We automatically find companies matching your filters and pinpoint the key decision-makers (CEOs, Founders, CMOs) complete with verified contact info.',
+    stat: '1M+',
+    statUnit: '',
+    statLabel: 'Filtered records',
   },
   {
-    title: "3 — Deep Research",
+    title: '3 — Deep Research',
     body: "Our AI agents analyze the company's website, news, and LinkedIn profiles. It builds a detailed summary of their recent activities and current business challenges to form the perfect outreach angle.",
-    stat: "99",
-    statUnit: "%",
-    statLabel: "Research accuracy",
+    stat: '99',
+    statUnit: '%',
+    statLabel: 'Research accuracy',
   },
   {
-    title: "4 — Generate Outreach",
-    body: "No more generic templates. The AI generates highly personalized cold emails that feel human because they reference the deep research we just performed on each specific company.",
-    stat: "45",
-    statUnit: "%",
-    statLabel: "Higher reply rates",
+    title: '4 — Generate Outreach',
+    body: 'No more generic templates. The AI generates highly personalized cold emails that feel human because they reference the deep research we just performed on each specific company.',
+    stat: '45',
+    statUnit: '%',
+    statLabel: 'Higher reply rates',
   },
   {
-    title: "5 — Smart Follow-Ups",
-    body: "Most deals close in the follow-ups. Set your sequence timing (e.g., Day 3, Day 7, Day 14) and our system handles the entire campaign natively until the prospect replies and books a meeting.",
-    stat: "4x",
-    statUnit: "",
-    statLabel: "Meetings booked",
+    title: '5 — Smart Follow-Ups',
+    body: 'Most deals close in the follow-ups. Set your sequence timing (e.g., Day 3, Day 7, Day 14) and our system handles the entire campaign natively until the prospect replies and books a meeting.',
+    stat: '4x',
+    statUnit: '',
+    statLabel: 'Meetings booked',
   },
 ];
 
@@ -75,16 +75,16 @@ export default function ProcessSteps() {
     () => {
       if (!sectionRef.current) return;
       gsap.fromTo(
-        sectionRef.current.querySelector("[data-bento-grid]"),
+        sectionRef.current.querySelector('[data-bento-grid]'),
         { y: 60, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          ease: "power3.out",
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
-            end: "top 30%",
+            start: 'top 80%',
+            end: 'top 30%',
             scrub: 1,
           },
         },
@@ -113,9 +113,7 @@ export default function ProcessSteps() {
             from start to finish.
           </h3>
 
-          <p className={s.subDesc}>
-            Let AI handle the manual prospecting work while you close.
-          </p>
+          <p className={s.subDesc}>Let AI handle the manual prospecting work while you close.</p>
         </div>
       </div>
 
@@ -142,7 +140,7 @@ export default function ProcessSteps() {
             {STEPS.map((_, i) => (
               <button
                 key={i}
-                className={`${s.dot} ${i === activeStep ? s.dotActive : ""}`}
+                className={`${s.dot} ${i === activeStep ? s.dotActive : ''}`}
                 onClick={() => goTo(i)}
                 aria-label={`Go to step ${i + 1}`}
               />
@@ -152,11 +150,7 @@ export default function ProcessSteps() {
 
         {/* Top-right: Arrow navigation */}
         <div className={s.cellArrows}>
-          <button
-            className={s.arrowBtn}
-            onClick={prev}
-            aria-label="Previous step"
-          >
+          <button className={s.arrowBtn} onClick={prev} aria-label="Previous step">
             ←
           </button>
           <button className={s.arrowBtn} onClick={next} aria-label="Next step">
@@ -176,7 +170,7 @@ export default function ProcessSteps() {
         <div className={s.cellCTA}>
           <button
             className={s.ctaBtn}
-            onClick={() => window.dispatchEvent(new Event("open-launch-modal"))}
+            onClick={() => window.dispatchEvent(new Event('open-launch-modal'))}
           >
             <svg
               width="16"

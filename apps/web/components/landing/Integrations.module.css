@@ -20,11 +20,7 @@
   transform: translateX(-50%);
   width: 800px;
   height: 600px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(240, 90, 40, 0.04) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(ellipse at center, rgba(240, 90, 40, 0.04) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -69,8 +65,14 @@
   margin-bottom: 1rem;
 }
 
-.hi { font-style: italic; color: #5B6EFF; }
-.hn { font-style: normal; color: rgba(255, 255, 255, 0.8); }
+.hi {
+  font-style: italic;
+  color: #5b6eff;
+}
+.hn {
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.8);
+}
 
 .desc {
   font-family: var(--font-inter), sans-serif;
@@ -130,7 +132,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #5B6EFF;
+  background: #5b6eff;
 }
 
 /* hexagonal snowflake icon */
@@ -203,7 +205,7 @@
 }
 
 .aiSphere::after {
-  content: "AI";
+  content: 'AI';
   font-family: var(--font-syne), sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
@@ -218,7 +220,9 @@
 }
 
 @keyframes spinSlow {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .aiName {
@@ -231,7 +235,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #5B6EFF;
+  background: #5b6eff;
   margin-top: 6px;
 }
 
@@ -306,7 +310,7 @@
 .speedBadge {
   font-size: 0.65rem;
   font-weight: 700;
-  color: #5B6EFF;
+  color: #5b6eff;
   background: rgba(240, 90, 40, 0.1);
   padding: 2px 8px;
   border-radius: 4px;
@@ -328,7 +332,7 @@
 .speedFill {
   height: 100%;
   border-radius: 2px;
-  background: linear-gradient(90deg, rgba(240, 90, 40, 0.25), #5B6EFF);
+  background: linear-gradient(90deg, rgba(240, 90, 40, 0.25), #5b6eff);
 }
 
 /* ── Cell 5: Uptime ── */
@@ -393,7 +397,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.25s, transform 0.25s, background 0.25s;
+  transition:
+    border-color 0.25s,
+    transform 0.25s,
+    background 0.25s;
 }
 
 .logoCard:hover {
@@ -432,7 +439,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #5B6EFF;
+  background: #5b6eff;
   color: #fff;
   font-size: 0.8rem;
   font-weight: 600;
@@ -441,7 +448,9 @@
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 20px -4px rgba(240, 90, 40, 0.35);
-  transition: filter 0.2s, transform 0.2s;
+  transition:
+    filter 0.2s,
+    transform 0.2s;
   white-space: nowrap;
 }
 
@@ -456,10 +465,16 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
-  .cellAnalytics { grid-row: auto; }
-  .header { flex-direction: column; gap: 1.5rem; }
-  
-  .logoArea, .footerArea {
+  .cellAnalytics {
+    grid-row: auto;
+  }
+  .header {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .logoArea,
+  .footerArea {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }

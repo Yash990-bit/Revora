@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import s from "./Milestones.module.css";
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import s from './Milestones.module.css';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
 /* ── Stats Data ── */
 const STATS = [
-  { label: "Leads\nDiscovered", value: "10M", accent: "+" },
-  { label: "Active Sales\nTeams", value: "3K", accent: "" },
-  { label: "Emails\nSent", value: "50M", accent: "+" },
-  { label: "Meetings\nBooked", value: "450K", accent: "" },
-  { label: "Avg. Reply\nRate", value: "18", accent: "%" },
-  { label: "Hours Saved\nWeekly", value: "120K", accent: "+" },
+  { label: 'Leads\nDiscovered', value: '10M', accent: '+' },
+  { label: 'Active Sales\nTeams', value: '3K', accent: '' },
+  { label: 'Emails\nSent', value: '50M', accent: '+' },
+  { label: 'Meetings\nBooked', value: '450K', accent: '' },
+  { label: 'Avg. Reply\nRate', value: '18', accent: '%' },
+  { label: 'Hours Saved\nWeekly', value: '120K', accent: '+' },
 ];
 
 /* ═══════════════════ Component ═══════════════════ */
@@ -27,7 +27,7 @@ export default function Milestones() {
   useGSAP(
     () => {
       if (!sectionRef.current) return;
-      const cards = sectionRef.current.querySelectorAll("[data-stat]");
+      const cards = sectionRef.current.querySelectorAll('[data-stat]');
 
       /* Staggered count-up feel: cards slide up one by one */
       gsap.fromTo(
@@ -37,11 +37,11 @@ export default function Milestones() {
           y: 0,
           opacity: 1,
           stagger: 0.1,
-          ease: "power3.out",
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 75%",
-            end: "top 25%",
+            start: 'top 75%',
+            end: 'top 25%',
             scrub: 1,
           },
         },
@@ -69,8 +69,8 @@ export default function Milestones() {
           <span className={s.descDot}>
             <span className={s.descDotInner} />
           </span>
-          Driving measurable growth worldwide with every lead discovered, email
-          personalized, and meeting booked.
+          Driving measurable growth worldwide with every lead discovered, email personalized, and
+          meeting booked.
         </p>
       </div>
 
@@ -79,7 +79,7 @@ export default function Milestones() {
         {STATS.map((stat, i) => (
           <div key={i} className={s.card} data-stat>
             <div className={s.cardLabel}>
-              {stat.label.split("\n").map((line, j) => (
+              {stat.label.split('\n').map((line, j) => (
                 <span key={j}>
                   {line}
                   <br />
@@ -88,9 +88,7 @@ export default function Milestones() {
             </div>
             <div className={s.cardValue}>
               {stat.value}
-              {stat.accent && (
-                <span className={s.cardValueAccent}>{stat.accent}</span>
-              )}
+              {stat.accent && <span className={s.cardValueAccent}>{stat.accent}</span>}
             </div>
             <div className={s.cardGlow} />
           </div>

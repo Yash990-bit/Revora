@@ -54,7 +54,7 @@
 }
 
 .highlight {
-  color: #5B6EFF;
+  color: #5b6eff;
   /* The requested orange */
 }
 
@@ -85,15 +85,15 @@
 }
 
 .cardImage::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
   height: 100px;
-  background: #5B6EFF;
-  box-shadow: 0 0 40px 10px #5B6EFF;
+  background: #5b6eff;
+  box-shadow: 0 0 40px 10px #5b6eff;
 }
 
 .cardFooter {
@@ -115,7 +115,7 @@
 }
 
 .arrowIcon {
-  color: #5B6EFF;
+  color: #5b6eff;
   width: 20px;
   height: 20px;
 }
@@ -167,7 +167,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: #5B6EFF;
+  background: #5b6eff;
   color: white;
   border: none;
   padding: 1rem 1.75rem;
@@ -176,7 +176,9 @@
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: transform 0.2s ease, filter 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
 }
 
 .primaryBtn:hover {
@@ -202,7 +204,7 @@
   font-family: var(--font-syne), sans-serif;
   font-size: clamp(2rem, 5vh, 3rem);
   font-weight: 700;
-  color: #5B6EFF;
+  color: #5b6eff;
   line-height: 1;
 }
 

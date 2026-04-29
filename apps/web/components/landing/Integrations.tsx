@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import s from "./Integrations.module.css";
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import s from './Integrations.module.css';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 /* ── Platform logos data ── */
 const LOGOS = [
-  { name: "Zapier", icon: "zapier/ff4a00" },
-  { name: "Slack", icon: "slack/e01e5a" },
-  { name: "Airtable", icon: "airtable/18bfff" },
-  { name: "PayPal", icon: "paypal/0079c1" },
-  { name: "Notion", icon: "notion/ffffff" },
-  { name: "Zendesk", icon: "zendesk/00363d" },
-  { name: "Salesforce", icon: "salesforce/00a1e0" },
-  { name: "Asana", icon: "asana/f06a6a" },
+  { name: 'Zapier', icon: 'zapier/ff4a00' },
+  { name: 'Slack', icon: 'slack/e01e5a' },
+  { name: 'Airtable', icon: 'airtable/18bfff' },
+  { name: 'PayPal', icon: 'paypal/0079c1' },
+  { name: 'Notion', icon: 'notion/ffffff' },
+  { name: 'Zendesk', icon: 'zendesk/00363d' },
+  { name: 'Salesforce', icon: 'salesforce/00a1e0' },
+  { name: 'Asana', icon: 'asana/f06a6a' },
 ];
 /* ═══════════════════ Component ═══════════════════ */
 export default function Integrations() {
@@ -27,7 +27,7 @@ export default function Integrations() {
   useGSAP(
     () => {
       if (!sectionRef.current) return;
-      const bento = sectionRef.current.querySelector("[data-int-bento]");
+      const bento = sectionRef.current.querySelector('[data-int-bento]');
       if (!bento) return;
 
       gsap.fromTo(
@@ -37,11 +37,11 @@ export default function Integrations() {
           y: 0,
           opacity: 1,
           scale: 1,
-          ease: "power3.out",
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 75%",
-            end: "top 25%",
+            start: 'top 75%',
+            end: 'top 25%',
             scrub: 1,
           },
         },
@@ -62,14 +62,13 @@ export default function Integrations() {
         </div>
         <div className={s.headerText}>
           <h2 className={s.heading}>
-            <span className={s.hi}>Seamless</span>{" "}
-            <span className={s.hn}>CRM</span>
+            <span className={s.hi}>Seamless</span> <span className={s.hn}>CRM</span>
             <br />
             <span className={s.hn}>Integrations</span>
           </h2>
           <p className={s.desc}>
-            Connect your CRM and sales tools into one powerful ecosystem to sync
-            leads, track replies, and manage pipelines effortlessly.
+            Connect your CRM and sales tools into one powerful ecosystem to sync leads, track
+            replies, and manage pipelines effortlessly.
           </p>
         </div>
       </div>
@@ -151,7 +150,7 @@ export default function Integrations() {
               <span className={s.speedText}>Faster Prospecting</span>
             </div>
             <div className={s.speedBar}>
-              <div className={s.speedFill} style={{ width: "65%" }} />
+              <div className={s.speedFill} style={{ width: '65%' }} />
             </div>
           </div>
           <div className={s.speedItem}>
@@ -160,7 +159,7 @@ export default function Integrations() {
               <span className={s.speedText}>Higher Reply Rates</span>
             </div>
             <div className={s.speedBar}>
-              <div className={s.speedFill} style={{ width: "85%" }} />
+              <div className={s.speedFill} style={{ width: '85%' }} />
             </div>
           </div>
         </div>

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import s from "./DashboardPreview.module.css";
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import s from './DashboardPreview.module.css';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
@@ -237,29 +237,16 @@ function IconChart() {
 
 /* ── Sidebar config ── */
 const NAV_ITEMS = [
-  { icon: IconDashboard, label: "Dashboard", active: true },
-  { icon: IconCampaigns, label: "Campaigns" },
-  { icon: IconAnalytics, label: "Analytics" },
-  { icon: IconIntegration, label: "Integration" },
-  { icon: IconReports, label: "Reports" },
-  { icon: IconPerformance, label: "Performance" },
+  { icon: IconDashboard, label: 'Dashboard', active: true },
+  { icon: IconCampaigns, label: 'Campaigns' },
+  { icon: IconAnalytics, label: 'Analytics' },
+  { icon: IconIntegration, label: 'Integration' },
+  { icon: IconReports, label: 'Reports' },
+  { icon: IconPerformance, label: 'Performance' },
 ];
 
 const BAR_HEIGHTS = [28, 42, 35, 55, 48, 72, 65, 92, 78, 60, 85, 45];
-const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 /* ═══════════════════ Component ═══════════════════ */
 export default function DashboardPreview() {
@@ -283,11 +270,11 @@ export default function DashboardPreview() {
           scale: 1,
           opacity: 1,
           y: 0,
-          ease: "power3.out",
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 90%",
-            end: "top 10%",
+            start: 'top 90%',
+            end: 'top 10%',
             scrub: 1.5,
           },
         },
@@ -297,11 +284,11 @@ export default function DashboardPreview() {
       gsap.to(el, {
         rotateX: -2,
         rotateY: 1,
-        ease: "sine.inOut",
+        ease: 'sine.inOut',
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "center center",
-          end: "bottom top",
+          start: 'center center',
+          end: 'bottom top',
           scrub: 2.5,
         },
       });
@@ -328,11 +315,7 @@ export default function DashboardPreview() {
             {NAV_ITEMS.map((item) => {
               const Ico = item.icon;
               return (
-                <a
-                  key={item.label}
-                  href="#"
-                  className={item.active ? s.navItemActive : s.navItem}
-                >
+                <a key={item.label} href="#" className={item.active ? s.navItemActive : s.navItem}>
                   <Ico />
                   <span>{item.label}</span>
                 </a>
@@ -436,7 +419,7 @@ export default function DashboardPreview() {
                   <div className={s.barsRow}>
                     {BAR_HEIGHTS.map((h, i) => (
                       <div key={i} className={s.barGroup}>
-                        <div className={s.barDim} style={{ height: h + "%" }} />
+                        <div className={s.barDim} style={{ height: h + '%' }} />
                         <div className={s.barBright} />
                       </div>
                     ))}
@@ -458,7 +441,7 @@ export default function DashboardPreview() {
                   className={s.donut}
                   style={{
                     background:
-                      "conic-gradient(#5B6EFF 0% 35%, rgba(255,255,255,0.08) 35% 55%, rgba(255,255,255,0.04) 55% 75%, rgba(255,255,255,0.15) 75% 100%)",
+                      'conic-gradient(#5B6EFF 0% 35%, rgba(255,255,255,0.08) 35% 55%, rgba(255,255,255,0.04) 55% 75%, rgba(255,255,255,0.15) 75% 100%)',
                   }}
                 >
                   <div className={s.donutHole}>

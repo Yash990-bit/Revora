@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import s from "./FeaturesBento.module.css";
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import s from './FeaturesBento.module.css';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
@@ -19,7 +19,7 @@ export default function FeaturesBento() {
   useGSAP(
     () => {
       if (!sectionRef.current) return;
-      const cards = sectionRef.current.querySelectorAll("[data-bento]");
+      const cards = sectionRef.current.querySelectorAll('[data-bento]');
 
       gsap.fromTo(
         cards,
@@ -28,11 +28,11 @@ export default function FeaturesBento() {
           y: 0,
           opacity: 1,
           stagger: 0.12,
-          ease: "power3.out",
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
-            end: "top 20%",
+            start: 'top 80%',
+            end: 'top 20%',
             scrub: 1,
           },
         },
@@ -169,12 +169,9 @@ export default function FeaturesBento() {
           <div className={s.processTitle}>Process Optimisation</div>
           <div className={s.bars}>
             {[75, 55, 90, 40, 65].map((fill, i) => (
-              <div key={i} className={s.processBar} style={{ height: "70px" }}>
+              <div key={i} className={s.processBar} style={{ height: '70px' }}>
                 <div className={s.processBarTrack}>
-                  <div
-                    className={s.processBarFill}
-                    style={{ height: fill + "%" }}
-                  />
+                  <div className={s.processBarFill} style={{ height: fill + '%' }} />
                   <div className={s.processBarDot} />
                 </div>
               </div>

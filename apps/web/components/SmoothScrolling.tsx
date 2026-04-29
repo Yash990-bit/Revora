@@ -1,16 +1,12 @@
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
-import { ReactLenis } from "lenis/react";
+import { usePathname } from 'next/navigation';
+import { ReactLenis } from 'lenis/react';
 
-export default function SmoothScrolling({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function SmoothScrolling({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   // Lenis conflicts with overflow-y-auto panels in the dashboard layout
-  const isDashboard = pathname?.startsWith("/dashboard");
+  const isDashboard = pathname?.startsWith('/dashboard');
 
   if (isDashboard) {
     return <>{children}</>;

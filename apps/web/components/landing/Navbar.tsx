@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useRef } from "react";
-import styles from "./Navbar.module.css";
-import Link from "next/dist/client/link";
+import React, { useState, useEffect, useRef } from 'react';
+import styles from './Navbar.module.css';
+import Link from 'next/dist/client/link';
 
 const GridIcon = () => (
   <svg
@@ -28,7 +28,7 @@ const CalendarIcon = () => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    style={{ width: "18px", height: "18px" }}
+    style={{ width: '18px', height: '18px' }}
   >
     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
     <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -39,7 +39,7 @@ const CalendarIcon = () => (
 
 const NAV_LINKS = [
   {
-    name: "Product",
+    name: 'Product',
     icon: (
       <svg
         width="24"
@@ -58,7 +58,7 @@ const NAV_LINKS = [
     ),
   },
   {
-    name: "Solutions",
+    name: 'Solutions',
     icon: (
       <svg
         width="24"
@@ -75,7 +75,7 @@ const NAV_LINKS = [
     ),
   },
   {
-    name: "Resources",
+    name: 'Resources',
     icon: (
       <svg
         width="24"
@@ -92,7 +92,7 @@ const NAV_LINKS = [
     ),
   },
   {
-    name: "Pricing",
+    name: 'Pricing',
     icon: (
       <svg
         width="24"
@@ -126,8 +126,8 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -137,16 +137,13 @@ export default function Navbar() {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    id: string,
-  ) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    if (window.location.pathname !== "/") {
+    if (window.location.pathname !== '/') {
       window.location.href = `/#${id}`;
       return;
     }
@@ -158,7 +155,7 @@ export default function Navbar() {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -173,9 +170,7 @@ export default function Navbar() {
         </div>
 
         {/* Inline menu shown when scrolled */}
-        <div
-          className={`${styles.inlineMenu} ${isScrolled ? styles.showInline : ""}`}
-        >
+        <div className={`${styles.inlineMenu} ${isScrolled ? styles.showInline : ''}`}>
           {NAV_LINKS.map((link) => (
             <a
               key={link.name}
@@ -191,7 +186,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           {/* Grid Icon hidden when scrolled */}
           <div
-            className={`${styles.gridIconWrapper} ${isScrolled ? styles.hideGrid : ""}`}
+            className={`${styles.gridIconWrapper} ${isScrolled ? styles.hideGrid : ''}`}
             onClick={() => !isScrolled && setIsMenuOpen(!isMenuOpen)}
           >
             <GridIcon />
@@ -208,7 +203,7 @@ export default function Navbar() {
             href="/schedule"
             className="p-2.5 rounded-full bg-blue-500 text-white transition-all hover:bg-blue-600 active:scale-95"
             aria-label="Book Demo"
-            onClick={() => window.dispatchEvent(new Event("open-launch-modal"))}
+            onClick={() => window.dispatchEvent(new Event('open-launch-modal'))}
           >
             <CalendarIcon />
           </Link>
@@ -217,7 +212,7 @@ export default function Navbar() {
 
       {/* Dropdown Menu - Shown only when at top AND menu is open */}
       <div
-        className={`${styles.dropdownMenu} ${isMenuOpen && !isScrolled ? styles.showDropdown : ""}`}
+        className={`${styles.dropdownMenu} ${isMenuOpen && !isScrolled ? styles.showDropdown : ''}`}
       >
         {NAV_LINKS.map((link) => (
           <a
