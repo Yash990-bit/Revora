@@ -28,7 +28,7 @@ describe('API Utilities', () => {
       json: async () => ({ data: 'test' }),
     };
 
-    fetchSpy.mockResolvedValueOnce(mockResponse as any);
+    fetchSpy.mockResolvedValueOnce(mockResponse as unknown as Response);
 
     const response = await fetch('http://localhost:8000/api/test');
     expect(response.ok).toBe(true);

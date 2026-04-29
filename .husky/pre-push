@@ -1,11 +1,7 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# Run linter checks before commit
 echo "🔍 Running linters and formatters..."
 
-# Run turbo lint
-npx turbo run lint --no-cache
+# Run turbo lint without TUI
+npx turbo run lint --no-cache --log-order=stream
 
 if [ $? -ne 0 ]; then
   echo "❌ Linting failed. Please fix errors before committing."
