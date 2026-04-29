@@ -17,6 +17,14 @@ bun.lock
 
 # Testing
 coverage
+.coverage
+htmlcov/
+*.lcov
+.pytest_cache/
+.jest_cache/
+test-results/
+junit.xml
+coverage/
 
 # Turbo
 .turbo

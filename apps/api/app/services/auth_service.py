@@ -8,42 +8,47 @@ from app.schemas.auth_schema import SignupSchema, LoginSchema
 
 
 def signup_user(db: Session, data: SignupSchema) -> dict:
-	if data.password != data.confirm_password:
-		raise HTTPException(status_code=400, detail="Passwords do not match")
+    if data.password != data.confirm_password:
+        raise HTTPException(status_code=400, detail="Passwords do not match")
 
-	existing_user = db.query(User).filter(User.email == data.email).first()
-	if existing_user:
-		raise HTTPException(status_code=400, detail="Email already registered")
+    existing_user = db.query(User).filter(User.email == data.email).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
 
-	new_user = User(
-		full_name=data.full_name,
-		email=data.email,
-		password=hash_password(data.password),
-		company_name=data.company_name,
-		role=data.role,
-	)
+    new_user = User(
+        full_name=data.full_name,
+        email=data.email,
+        password=hash_password(data.password),
+        company_name=data.company_name,
+        role=data.role,
+    )
 
-	db.add(new_user)
-	db.commit()
-	db.refresh(new_user)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
 
-	token = create_access_token({"user_id": str(new_user.id)})
-	return {
-		"message": "User created successfully",
-		"access_token": token,
-		"token_type": "bearer",
-		"redirect_url": "/dashboard",
-	}
+    # Seed welcome data for the new user (only if whitelisted)
+    from app.utils.seed_utils import seed_welcome_data
+
+    seed_welcome_data(db, str(new_user.id), new_user.email)
+
+    token = create_access_token({"user_id": str(new_user.id)})
+    return {
+        "message": "User created successfully",
+        "access_token": token,
+        "token_type": "bearer",
+        "redirect_url": "/dashboard",
+    }
 
 
 def login_user(db: Session, data: LoginSchema) -> dict:
-	user = db.query(User).filter(User.email == data.email).first()
-	if not user or not verify_password(data.password, user.password):
-		raise HTTPException(status_code=400, detail="Invalid credentials")
+    user = db.query(User).filter(User.email == data.email).first()
+    if not user or not verify_password(data.password, user.password):
+        raise HTTPException(status_code=400, detail="Invalid credentials")
 
-	token = create_access_token({"user_id": str(user.id)})
-	return {
-		"access_token": token,
-		"token_type": "bearer",
-		"redirect_url": "/dashboard",
-	}
+    token = create_access_token({"user_id": str(user.id)})
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "redirect_url": "/dashboard",
+    }

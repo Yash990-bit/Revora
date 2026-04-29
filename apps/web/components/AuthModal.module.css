@@ -10,7 +10,9 @@
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 
 .overlayOpen {
@@ -26,7 +28,9 @@
   border-radius: 32px;
   padding: 2.5rem;
   color: #fff;
-  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow:
+    0 50px 120px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
   font-family: var(--font-inter), sans-serif;
 }
 
@@ -44,7 +48,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .closeBtn:hover {
@@ -96,7 +102,7 @@
 }
 
 .tabActive {
-  background: #5B6EFF;
+  background: #f05a28;
   color: white;
   box-shadow: 0 12px 30px rgba(240, 90, 40, 0.35);
 }
@@ -126,7 +132,9 @@
   background: rgba(255, 255, 255, 0.02);
   text-align: left;
   cursor: pointer;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .roleCard:hover {
@@ -164,14 +172,16 @@
   padding: 0.95rem 1.25rem;
   font-weight: 600;
   font-size: 1rem;
-  background: #5B6EFF;
+  background: #f05a28;
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .primaryBtn:disabled {

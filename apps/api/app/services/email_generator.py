@@ -48,7 +48,11 @@ class EmailParser:
         except Exception:
             pass
 
-        result = cls._try_extract_json_block(text) or cls._try_regex_json(text) or cls._try_regex_plain(text)
+        result = (
+            cls._try_extract_json_block(text)
+            or cls._try_regex_json(text)
+            or cls._try_regex_plain(text)
+        )
         if result:
             return result
 
@@ -96,7 +100,10 @@ class EmailParser:
         lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
         lines = [ln for ln in lines if ln not in {"{", "}"}]
         if len(lines) >= 2:
-            return {"subject": lines[0][:120].lstrip('"').rstrip('",'), "body": "\n".join(lines[1:]).strip()}
+            return {
+                "subject": lines[0][:120].lstrip('"').rstrip('",'),
+                "body": "\n".join(lines[1:]).strip(),
+            }
         return {"subject": "Quick idea", "body": text}
 
 
@@ -169,7 +176,12 @@ class EmailFormatter:
         if "thanks," not in lower:
             return body.rstrip() + f"\n\nThanks,\n{sender_name}"
         if sender_name.lower() not in lower:
-            return body.rstrip() + f"\n{sender_name}"
+            return re.sub(
+                r"(?is)(Thanks,\s*\n?)(.*)$",
+                lambda match: f"{match.group(1).rstrip()}\n{sender_name}",
+                body.rstrip(),
+                count=1,
+            )
         return body
 
 
@@ -183,7 +195,9 @@ class EmailGenerator:
 
         self._llm = ChatOpenAI(
             api_key=api_key,
-            base_url=os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1").strip().rstrip("/"),
+            base_url=os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1")
+            .strip()
+            .rstrip("/"),
             model=os.getenv("LLM_MODEL", "llama-3.3-70b-versatile").strip(),
         )
         self._parser = EmailParser()
@@ -216,10 +230,12 @@ class EmailGenerator:
     def _generate(self, ctx: EmailContext) -> Dict:
         try:
             prompt = self._build_prompt(ctx)
-            raw = self._llm.invoke([
-                SystemMessage(content=_SYSTEM_PROMPT),
-                HumanMessage(content=prompt),
-            ]).content
+            raw = self._llm.invoke(
+                [
+                    SystemMessage(content=_SYSTEM_PROMPT),
+                    HumanMessage(content=prompt),
+                ]
+            ).content
             data = EmailParser.parse(raw)
             result = EmailFormatter.format(
                 subject=(data.get("subject") or "").strip(),

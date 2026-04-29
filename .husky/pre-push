@@ -1,0 +1,22 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run linter checks before commit
+echo "🔍 Running linters and formatters..."
+
+# Run turbo lint
+npx turbo run lint --no-cache
+
+if [ $? -ne 0 ]; then
+  echo "❌ Linting failed. Please fix errors before committing."
+  exit 1
+fi
+
+# Check formatting
+echo "📝 Checking formatting..."
+npx prettier --check "**/*.{ts,tsx,js,json,md}" || {
+  echo "❌ Formatting issues found. Run 'npm run format' to fix."
+  exit 1
+}
+
+echo "✅ Pre-commit checks passed!"

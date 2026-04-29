@@ -1,1 +1,13 @@
-bunx lint-staged
+# Run lint-staged with formatting and linting checks
+echo "Running lint-staged..."
+
+# Ensure python venv is active if it exists to provide black/flake8
+if [ -f "apps/api/app/venv/bin/activate" ]; then
+  . apps/api/app/venv/bin/activate
+fi
+
+npx lint-staged
+
+# Exit with status from lint-staged
+exit $?
+

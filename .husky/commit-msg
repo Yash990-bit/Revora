@@ -1,0 +1,11 @@
+echo "🧪 Running tests before commit..."
+
+# Run tests without TUI to avoid "Device not configured" errors
+npx turbo run test --no-cache --log-order=stream
+
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed. Please fix failing tests before pushing."
+  exit 1
+fi
+
+echo "✅ All tests passed!"

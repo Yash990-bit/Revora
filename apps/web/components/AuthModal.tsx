@@ -1,67 +1,63 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import styles from "./AuthModal.module.css";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import styles from './AuthModal.module.css';
 
 const ROLES = [
-  { id: "founder", label: "Founder", description: "Shape the roadmap" },
-  { id: "operator", label: "Operator", description: "Keep delivery sharp" },
-  { id: "investor", label: "Investor", description: "Track portfolio wins" },
+  { id: 'sales_leader', label: 'Sales Leader', description: 'Manage pipeline and team goals' },
+  { id: 'sdr', label: 'SDR / BDR', description: 'Find leads and send outreach' },
+  { id: 'growth_marketer', label: 'Growth Marketer', description: 'Run outbound campaigns' },
 ];
 
-type Mode = "login" | "signup";
+type Mode = 'login' | 'signup';
 
 export default function AuthModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const [mode, setMode] = useState<Mode>("signup");
+  const [mode, setMode] = useState<Mode>('signup');
   const [role, setRole] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     const open = () => {
       setIsOpen(true);
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     };
     const close = () => {
       setIsOpen(false);
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
 
-    window.addEventListener("open-auth-modal", open);
-    window.addEventListener("close-auth-modal", close);
+    window.addEventListener('open-auth-modal', open);
+    window.addEventListener('close-auth-modal', close);
     return () => {
-      window.removeEventListener("open-auth-modal", open);
-      window.removeEventListener("close-auth-modal", close);
+      window.removeEventListener('open-auth-modal', open);
+      window.removeEventListener('close-auth-modal', close);
     };
   }, []);
 
   const closeModal = () => {
     setIsOpen(false);
-    document.body.style.overflow = "";
+    document.body.style.overflow = '';
   };
 
   const handleContinue = () => {
-    if (mode === "login") {
+    if (mode === 'login') {
       closeModal();
-      router.push("/auth/login");
+      router.push('/auth/login');
       return;
     }
 
     if (!role) return;
     closeModal();
-    const query = role ? `?role=${role}` : "";
+    const query = role ? `?role=${role}` : '';
     router.push(`/auth/signup${query}`);
   };
 
   return (
-    <div className={`${styles.overlay} ${isOpen ? styles.overlayOpen : ""}`}>
+    <div className={`${styles.overlay} ${isOpen ? styles.overlayOpen : ''}`}>
       <div className={styles.modal} role="dialog" aria-modal="true">
-        <button
-          className={styles.closeBtn}
-          onClick={closeModal}
-          aria-label="Close"
-        >
+        <button className={styles.closeBtn} onClick={closeModal} aria-label="Close">
           ×
         </button>
 
@@ -72,36 +68,36 @@ export default function AuthModal() {
 
         <div className={styles.tabs}>
           <button
-            className={`${styles.tabBtn} ${mode === "signup" ? styles.tabActive : ""}`}
-            onClick={() => setMode("signup")}
+            className={`${styles.tabBtn} ${mode === 'signup' ? styles.tabActive : ''}`}
+            onClick={() => setMode('signup')}
           >
             Sign up
           </button>
           <button
-            className={`${styles.tabBtn} ${mode === "login" ? styles.tabActive : ""}`}
-            onClick={() => setMode("login")}
+            className={`${styles.tabBtn} ${mode === 'login' ? styles.tabActive : ''}`}
+            onClick={() => setMode('login')}
           >
             Login
           </button>
         </div>
 
         <div className={styles.modeBody}>
-          {mode === "login" ? (
+          {mode === 'login' ? (
             <p className={styles.modeDescription}>
-              Returning to build momentum? Jump back into your workspace and
-              keep scaling at lightspeed.
+              Returning to build momentum? Jump back into your workspace and keep scaling at
+              lightspeed.
             </p>
           ) : (
             <>
               <p className={styles.modeDescription}>
-                Choose the hat you wear most. We’ll personalize onboarding for
-                your flow — you can switch anytime.
+                Choose your sales role. We’ll personalize onboarding around lead generation,
+                outreach, and campaign execution.
               </p>
               <div className={styles.roleGrid}>
                 {ROLES.map((item) => (
                   <button
                     key={item.id}
-                    className={`${styles.roleCard} ${role === item.id ? styles.roleActive : ""}`}
+                    className={`${styles.roleCard} ${role === item.id ? styles.roleActive : ''}`}
                     onClick={() => setRole(item.id)}
                     type="button"
                   >
@@ -117,9 +113,9 @@ export default function AuthModal() {
             <button
               className={styles.primaryBtn}
               onClick={handleContinue}
-              disabled={mode === "signup" && !role}
+              disabled={mode === 'signup' && !role}
             >
-              {mode === "login" ? "Continue to login" : "Start with this role"}
+              {mode === 'login' ? 'Continue to login' : 'Start with this role'}
             </button>
             <button className={styles.secondaryLink} onClick={closeModal}>
               Maybe later
