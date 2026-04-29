@@ -12,6 +12,7 @@ os.environ["DATABASE_URL"] = "sqlite:///:memory:"
 os.environ["SECRET_KEY"] = "test-secret-key-for-unit-tests-only"
 os.environ["ALGORITHM"] = "HS256"
 os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"] = "30"
+os.environ["GROQ_API_KEY"] = "gsk_test_key_for_unit_testing"
 
 import pytest
 from fastapi.testclient import TestClient
