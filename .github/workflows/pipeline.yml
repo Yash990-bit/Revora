@@ -1,0 +1,128 @@
+name: Unified CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    - cron: '0 2 * * *' # Daily at 2 AM UTC
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # 1. Quality Check: Lint, Format, and Type Check
+  quality-check:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Lint and Format
+        run: |
+          bun run lint
+          bun x prettier --check "**/*.{ts,tsx,js,json,md,css,scss}"
+
+      - name: Type Check
+        run: bun run check-types
+
+  # 2. Backend Suite: Tests and Coverage
+  backend-tests:
+    name: Backend Tests (Python)
+    runs-on: ubuntu-latest
+    needs: quality-check
+    strategy:
+      matrix:
+        python-version: ['3.11']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install Backend Deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio pytest-cov pytest-mock flake8 black
+
+      - name: Run Backend Tests
+        working-directory: ./apps/api
+        run: pytest tests/ -v --cov=app --cov-report=xml
+
+      - name: Upload Coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage
+          path: apps/api/coverage.xml
+
+  # 3. Frontend Suite: Tests and Coverage
+  frontend-tests:
+    name: Frontend Tests (Node.js)
+    runs-on: ubuntu-latest
+    needs: quality-check
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run Frontend Tests
+        run: bun run test:frontend -- --coverage
+
+      - name: Upload Coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage
+          path: apps/web/coverage/lcov.info
+
+  # 4. Final Reporting: Coverage and PR Comments
+  report:
+    name: Final Report
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests]
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download All Coverage
+        uses: actions/download-artifact@v4
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: backend-coverage/coverage.xml,frontend-coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+
+      - name: PR Summary
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = '${{ needs.backend-tests.result }}' === 'success' && '${{ needs.frontend-tests.result }}' === 'success' ? '✅' : '❌';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ${status} CI Pipeline Results\n\n- Backend Tests: ${{ needs.backend-tests.result }}\n- Frontend Tests: ${{ needs.frontend-tests.result }}\n\nView detailed logs in the [Actions tab](${context.payload.pull_request.html_url}/checks).`
+            });
