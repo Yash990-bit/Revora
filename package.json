@@ -16,6 +16,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@jest/globals": "^30.3.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
     "@types/jest": "^29.5.11",
@@ -28,7 +29,8 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
     "turbo": "^2.8.17",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "web": "workspace:*"
   },
   "engines": {
     "node": ">=18"

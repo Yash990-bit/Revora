@@ -4,7 +4,7 @@
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
 
 describe('API Utilities', () => {
-  let fetchSpy: jest.SpyInstance;
+  let fetchSpy: ReturnType<typeof jest.spyOn>;
 
   beforeEach(() => {
     fetchSpy = jest.spyOn(global, 'fetch');
