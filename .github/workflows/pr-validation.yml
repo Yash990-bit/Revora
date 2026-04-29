@@ -26,11 +26,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 20.x
-          cache: 'npm'
+          bun-version: latest
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -39,7 +38,7 @@ jobs:
           cache: 'pip'
 
       - name: Install Node dependencies
-        run: npm ci
+        run: bun install --frozen-lockfile
 
       - name: Install Python dependencies
         working-directory: ./apps/api
@@ -56,11 +55,11 @@ jobs:
 
       - name: Lint frontend
         if: steps.changes.outputs.frontend != '0'
-        run: npm run lint
+        run: bun run lint
 
       - name: Check frontend formatting
         if: steps.changes.outputs.frontend != '0'
-        run: npx prettier --check "apps/web/**/*.{ts,tsx}" "packages/**/*.{ts,tsx}"
+        run: bun x prettier --check "apps/web/**/*.{ts,tsx}" "packages/**/*.{ts,tsx}"
 
       - name: Lint backend
         if: steps.changes.outputs.backend != '0'
@@ -71,7 +70,7 @@ jobs:
 
       - name: Run frontend tests
         if: steps.changes.outputs.frontend != '0'
-        run: npm run test:frontend -- --passWithNoTests
+        run: bun run test:frontend -- --passWithNoTests
 
       - name: Run backend tests
         if: steps.changes.outputs.backend != '0'
@@ -91,7 +90,7 @@ jobs:
             if (frontend > 0) comment += '- ✅ Frontend changes detected and checked\n';
             
             comment += '\n**Note:** Run tests locally with:\n';
-            comment += '```bash\nnpm run test\n```';
+            comment += '```bash\nbun run test\n```';
             
             github.rest.issues.createComment({
               issue_number: context.issue.number,
